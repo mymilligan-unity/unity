@@ -1,5 +1,31 @@
 <Project>
- <PropertyGroup>
-  <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
- </PropertyGroup>
+
+  <PropertyGroup>
+    <VersionBaseBase>5.11</VersionBaseBase>
+    <VersionBase>$(VersionBaseBase).7</VersionBase>
+
+    <Version>$(VersionBase)</Version>
+    <FileVersion>$(VersionBase).0</FileVersion>
+    <AssemblyVersion>$(VersionBase).0</AssemblyVersion>
+
+    <UnityAbstractionsVersion>$(VersionBaseBase).*</UnityAbstractionsVersion>
+    <UnityContainerVersion>$(VersionBaseBase).*</UnityContainerVersion>
+    <UnityInterceptionVersion>$(VersionBaseBase).*</UnityInterceptionVersion>
+    <UnityConfigurationVersion>$(VersionBaseBase).*</UnityConfigurationVersion>
+
+    <FileVersion>$(Version).0</FileVersion>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+
+    <CommonServiceLocatorVersion>2.0.*</CommonServiceLocatorVersion>
+
+    <TargetFrameworks>netstandard2.0;net48;net8.0;net9.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageReleaseNotes>This package is distributed as NetStandard 2.0, .NET Framework 4.8, .NET 8.0, and .NET 9.0</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
+  </PropertyGroup>
 </Project>

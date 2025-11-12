@@ -1,0 +1,48 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Unity;
+
+namespace Compiled.Method
+{
+    [TestClass]
+    public class Parameters : Unity.Specification.Diagnostic.Method.Parameters.SpecificationTests
+    {
+        public override IUnityContainer GetContainer()
+        {
+            return new UnityContainer().AddExtension(new ForceCompilation())
+                                       .AddExtension(new Diagnostic());
+        }
+    }
+
+    [TestClass]
+    public class Validation : Unity.Specification.Diagnostic.Method.Validation.SpecificationTests
+    {
+        public override IUnityContainer GetContainer()
+        {
+            return new UnityContainer().AddExtension(new ForceCompilation())
+                                       .AddExtension(new Diagnostic());
+        }
+    }
+}
+
+namespace Resolved.Method
+{
+    [TestClass]
+    public class Parameters : Unity.Specification.Diagnostic.Method.Parameters.SpecificationTests
+    {
+        public override IUnityContainer GetContainer()
+        {
+            return new UnityContainer().AddExtension(new ForceActivation())
+                                       .AddExtension(new Diagnostic());
+        }
+    }
+
+    [TestClass]
+    public class Validation : Unity.Specification.Diagnostic.Method.Validation.SpecificationTests
+    {
+        public override IUnityContainer GetContainer()
+        {
+            return new UnityContainer().AddExtension(new ForceActivation())
+                                       .AddExtension(new Diagnostic());
+        }
+    }
+}

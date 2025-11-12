@@ -1,0 +1,15 @@
+﻿
+namespace Unity.Tests.v5.TestObjects
+{
+    internal class OptionalLogger
+    {
+        private string logFile;
+
+        public OptionalLogger([Dependency] string logFile)
+        {
+            this.logFile = logFile;
+        }
+
+        public string LogFile => logFile;
+    }
+}

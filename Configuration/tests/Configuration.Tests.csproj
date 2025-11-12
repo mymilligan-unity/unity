@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks />
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Microsoft.Practices.Unity.Configuration.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+  </ItemGroup>
+   
+  <ItemGroup>
+    <None Remove="ConfigFiles\*.config" />
+  </ItemGroup>
+   
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigFiles\ArrayInjection.config" />
+    <EmbeddedResource Include="ConfigFiles\BasicTypeMapping.config" />
+    <EmbeddedResource Include="ConfigFiles\Bootstrap.config" />
+    <EmbeddedResource Include="ConfigFiles\ContainerExtensions.config" />
+    <EmbeddedResource Include="ConfigFiles\EmptySection.config" />
+    <EmbeddedResource Include="ConfigFiles\Generics.config" />
+    <EmbeddedResource Include="ConfigFiles\InjectingGenerics.config" />
+    <EmbeddedResource Include="ConfigFiles\InjectingProperties.config" />
+    <EmbeddedResource Include="ConfigFiles\Lifetimes.config" />
+    <EmbeddedResource Include="ConfigFiles\MethodInjection.config" />
+    <EmbeddedResource Include="ConfigFiles\OldAliasesSyntax.config" />
+    <EmbeddedResource Include="ConfigFiles\OldContainersSyntax.config" />
+    <EmbeddedResource Include="ConfigFiles\OldTypeMappingSyntax.config" />
+    <EmbeddedResource Include="ConfigFiles\OptionalDependency.config" />
+    <EmbeddedResource Include="ConfigFiles\OptionalWithType.config" />
+    <EmbeddedResource Include="ConfigFiles\RegisteringInstances.config" />
+    <EmbeddedResource Include="ConfigFiles\RegistrationWithConstructors.config" />
+    <EmbeddedResource Include="ConfigFiles\SectionExtensions.config" />
+    <EmbeddedResource Include="ConfigFiles\SingleSectionMultipleNamedContainers.config" />
+    <EmbeddedResource Include="ConfigFiles\SingleSectionSingleContainer.config" />
+    <EmbeddedResource Include="ConfigFiles\TwoContainersAndAliases.config" />
+    <EmbeddedResource Include="ConfigFiles\VariousConstructors.config" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\src\Unity.Configuration.csproj" />
+
+    <ProjectReference Include="$(UnityAbstractions)" Condition="Exists('$(UnityAbstractions)')" />
+    <PackageReference Include="Unity.Abstractions" Version="5.11.*" Condition="!Exists('$(UnityAbstractions)')" />
+
+    <ProjectReference Include="$(UnityContainer)" Condition="Exists('$(UnityContainer)')" />
+    <PackageReference Include="Unity.Container" Version="$(UnityContainerVersion)" Condition="!Exists('$(UnityContainer)')" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netcoreapp2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+</Project>

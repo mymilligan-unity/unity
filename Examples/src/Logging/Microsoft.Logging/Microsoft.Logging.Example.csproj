@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    <MicrosoftLogging>..\..\..\..\Microsoft.Logging\src\Unity.Microsoft.Logging.csproj</MicrosoftLogging>
+  </PropertyGroup>
+
+
+  <ItemGroup Condition="Exists('$(MicrosoftLogging)')">
+    <ProjectReference Include="$(MicrosoftLogging)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(MicrosoftLogging)')">
+    <PackageReference Include="Unity.Microsoft.Logging" Version="1.1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.6" />
+  </ItemGroup>
+
+</Project>

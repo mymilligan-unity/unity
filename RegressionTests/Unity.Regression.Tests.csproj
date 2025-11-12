@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Unity Container Regression Tests</Description>
+    <Copyright>Copyright © .NET Foundation and Contributors. All Rights Reserved</Copyright>
+    <PackageProjectUrl>https://github.com/unitycontainer/regression-tests</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/unitycontainer/regression-tests</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/unitycontainer/regression-tests/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/12849707</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <UnityContainer>..\Container\src\Unity.Container.csproj</UnityContainer>
+    <UnityLegacy>..\unity\source\Unity\Src\Unity.csproj</UnityLegacy>
+    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks></TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestAdapter" Version="3.9.3">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestFramework" Version="3.9.3">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".git" />
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+    <None Remove="LICENSE" />
+  </ItemGroup>
+
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFramework)' == 'net48'">$(DefineConstants);UNITY</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Condition="'$(TargetFramework)' == 'net48'" Include="$(UnityContainer)" />
+  </ItemGroup>
+
+</Project>
