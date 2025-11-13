@@ -32,20 +32,13 @@ namespace Tests.OptionTests
                     {
                         { nameof(NullableOptions.MyNullableBool), "true" },
                         { nameof(NullableOptions.MyNullableInt), "1" },
-                        {
-                            nameof(NullableOptions.MyNullableDateTime),
-                            new DateTime(2015, 1, 1)
-                                .ToString("O")
-                        }
+                        { nameof(NullableOptions.MyNullableDateTime), new DateTime(2015, 1, 1).ToString("O", CultureInfo.InvariantCulture) }
                     },
                     new Dictionary<string, object>
                     {
                         { nameof(NullableOptions.MyNullableBool), true },
                         { nameof(NullableOptions.MyNullableInt), 1 },
-                        {
-                            nameof(NullableOptions.MyNullableDateTime),
-                            new DateTime(2015, 1, 1)
-                        }
+                        { nameof(NullableOptions.MyNullableDateTime), new DateTime(2015, 1, 1) }
                     }
                 };
                 yield return new object[]
@@ -54,20 +47,13 @@ namespace Tests.OptionTests
                     {
                         { nameof(NullableOptions.MyNullableBool), "false" },
                         { nameof(NullableOptions.MyNullableInt), "-1" },
-                        {
-                            nameof(NullableOptions.MyNullableDateTime),
-                            new DateTime(1995, 12, 31)
-                                .ToString("O")
-                        }
+                        { nameof(NullableOptions.MyNullableDateTime), new DateTime(1995, 12, 31).ToString("O", CultureInfo.InvariantCulture) }
                     },
                     new Dictionary<string, object>
                     {
                         { nameof(NullableOptions.MyNullableBool), false },
                         { nameof(NullableOptions.MyNullableInt), -1 },
-                        {
-                            nameof(NullableOptions.MyNullableDateTime),
-                            new DateTime(1995, 12, 31)
-                        }
+                        { nameof(NullableOptions.MyNullableDateTime), new DateTime(1995, 12, 31) }
                     }
                 };
                 yield return new object[]

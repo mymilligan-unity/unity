@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Unity;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using MEO = Microsoft.Extensions.Options.Options;
 
@@ -205,17 +206,28 @@ namespace Tests.OptionTests
 
             // Validate
             var optionsProps = options.GetType().GetProperties().ToDictionary(p => p.Name);
+
             var assertions = expectedValues
-                .Select(_ => new Action<KeyValuePair<string, object>>(kvp => Assert.AreEqual(kvp.Value, optionsProps[kvp.Key].GetValue(options))))
+                .Select(_ => new Action<KeyValuePair<string, object>>(kvp => Assert.AreEqual(StringConverter(kvp.Value), StringConverter(optionsProps[kvp.Key].GetValue(options)))))
                 .ToArray();
 
             var pairs = expectedValues.ToArray();
+
             for (var i = 0; i < assertions.Length; i++)
             {
                 var pair = pairs[i];
                 var assertion = assertions[i];
                 assertion(pair);
             }
+
+            return;
+
+            // Local function to convert values to strings for comparison.  This is required because the Options binding converts strings to a specific formate ("O").
+            static string StringConverter(object value) => value switch
+            {
+                DateTime dateTime => dateTime.ToString("O"),
+                _ => Convert.ToString(value, CultureInfo.InvariantCulture)
+            };
         }
 
         [DataTestMethod]

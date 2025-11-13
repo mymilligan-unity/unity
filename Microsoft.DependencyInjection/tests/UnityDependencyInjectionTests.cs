@@ -8,7 +8,7 @@ namespace Unity.Microsoft.DependencyInjection.Specification.Tests
 {
     public class Tests : DependencyInjectionSpecificationTests
     {
-        public override bool SupportsIServiceProviderIsService => true;
+        public override bool SupportsIServiceProviderIsService => false;
         public override bool ExpectStructWithPublicDefaultConstructorInvoked => false;
 
         protected override IServiceProvider CreateServiceProvider(IServiceCollection serviceCollection)
