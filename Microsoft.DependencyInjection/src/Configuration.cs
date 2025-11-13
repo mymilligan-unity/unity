@@ -24,35 +24,34 @@ namespace Unity.Microsoft.DependencyInjection
         }
 
 
-        internal static void Register(this IUnityContainer container,
-            ServiceDescriptor serviceDescriptor, ILifetimeContainer lifetime)
+        internal static void Register(this IUnityContainer container, ServiceDescriptor serviceDescriptor, ILifetimeContainer lifetime)
         {
+            var name = serviceDescriptor.ServiceType.IsGenericTypeDefinition ? UnityContainer.All : null;
             if (serviceDescriptor.ImplementationType != null)
             {
-                var name = serviceDescriptor.ServiceType.IsGenericTypeDefinition ? UnityContainer.All : null;
                 container.RegisterType(serviceDescriptor.ServiceType,
-                                       serviceDescriptor.ImplementationType,
-                                       name,
-                                       (ITypeLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
+                    serviceDescriptor.ImplementationType,
+                    name,
+                    (ITypeLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
             }
             else if (serviceDescriptor.ImplementationFactory != null)
             {
-                container.RegisterFactory(serviceDescriptor.ServiceType, 
-                                        null,
-                                        scope =>
-                                        {
-                                            var serviceProvider = scope.Resolve<IServiceProvider>();
-                                            var instance = serviceDescriptor.ImplementationFactory(serviceProvider);
-                                            return instance;
-                                        },
-                                       (IFactoryLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
+                container.RegisterFactory(serviceDescriptor.ServiceType,
+                    name,
+                    scope =>
+                    {
+                        var serviceProvider = scope.Resolve<IServiceProvider>();
+                        var instance = serviceDescriptor.ImplementationFactory(serviceProvider);
+                        return instance;
+                    },
+                    (IFactoryLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
             }
             else if (serviceDescriptor.ImplementationInstance != null)
             {
                 container.RegisterInstance(serviceDescriptor.ServiceType,
-                                           null,
-                                           serviceDescriptor.ImplementationInstance,
-                                           (IInstanceLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
+                    name,
+                    serviceDescriptor.ImplementationInstance,
+                    (IInstanceLifetimeManager)serviceDescriptor.GetLifetime(lifetime));
             }
             else
             {

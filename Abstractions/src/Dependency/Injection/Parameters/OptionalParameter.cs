@@ -83,7 +83,7 @@ namespace Unity.Injection
 #else
             var value = info.HasDefaultValue ? info.DefaultValue : null;
 #endif
-#if NETSTANDARD1_0 || NETCOREAPP1_0 
+#if NETSTANDARD || NET 
             var typeInfo = ParameterType?.GetTypeInfo();
             if (null == typeInfo || typeInfo.IsGenericType && typeInfo.ContainsGenericParameters ||
                 ParameterType.IsArray && ParameterType.GetElementType().GetTypeInfo().IsGenericParameter ||

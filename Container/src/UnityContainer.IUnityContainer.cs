@@ -116,12 +116,11 @@ namespace Unity
                 // Create registration and add to appropriate storage
                 var container = manager is SingletonLifetimeManager ? _root : this;
                 var registration = new ContainerRegistration(null, mappedToType, manager);
-                if (manager is ContainerControlledLifetimeManager lifeteime) lifeteime.Scope = container;
+                if (manager is ContainerControlledLifetimeManager lifetime) lifetime.Scope = container;
 
                 // Add or replace existing 
                 var previous = container.Register(typeFrom, name, registration);
-                if (previous is ContainerRegistration old &&
-                    old.LifetimeManager is IDisposable disposable)
+                if (previous is ContainerRegistration { LifetimeManager: IDisposable disposable })
                 {
                     // Dispose replaced lifetime manager
                     container.LifetimeContainer.Remove(disposable);

@@ -99,7 +99,7 @@ namespace Unity.Processors
                                 paramLength), new InvalidRegistrationException());
                     }
 
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                     var typeInfo = type.GetTypeInfo();
 #else
                     var typeInfo = type;
@@ -141,7 +141,7 @@ namespace Unity.Processors
 
                 if (qtd == 0)
                 {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                     return b.GetParameters().Sum(p => p.ParameterType.GetTypeInfo().IsInterface ? 1 : 0)
                         .CompareTo(a.GetParameters().Sum(p => p.ParameterType.GetTypeInfo().IsInterface ? 1 : 0));
 #else

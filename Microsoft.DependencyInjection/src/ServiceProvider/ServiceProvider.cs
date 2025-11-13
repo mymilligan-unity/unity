@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Unity.Exceptions;
 using Unity.Lifetime;
 using Unity.Microsoft.DependencyInjection.Lifetime;
@@ -92,7 +94,13 @@ namespace Unity.Microsoft.DependencyInjection
 
         public bool IsService(Type serviceType)
         {
-            return _container.IsRegistered(serviceType);
+#if NET || NETSTANDARD
+            if (serviceType.GetTypeInfo() is { IsGenericTypeDefinition: true, GenericTypeArguments.Length: < 1 })
+#else
+            if (serviceType is { IsGenericTypeDefinition: true, GenericTypeArguments.Length: < 1 })
+#endif
+                return false;
+            return _container.IsRegistered(serviceType) || _container.CanResolve(typeof(IEnumerable<>).MakeGenericType(serviceType));
         }
 
         public bool IsKeyedService(Type serviceType, object serviceKey)

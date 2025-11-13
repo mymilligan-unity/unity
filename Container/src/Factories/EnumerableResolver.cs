@@ -20,8 +20,7 @@ namespace Unity.Factories
 
         public static ResolveDelegateFactory Factory = (ref BuilderContext context) =>
         {
-
-#if NETSTANDARD1_0 || NETCOREAPP1_0 || NET40
+#if NETSTANDARD || NET || NET40
             var typeArgument = context.Type.GetTypeInfo().GenericTypeArguments.First();
             if (typeArgument.GetTypeInfo().IsGenericType)
 #else
@@ -31,13 +30,13 @@ namespace Unity.Factories
             {
                 return ((EnumerableFactoryDelegate)
                     EnumerableFactory.MakeGenericMethod(typeArgument)
-                                     .CreateDelegate(typeof(EnumerableFactoryDelegate)))();
+                        .CreateDelegate(typeof(EnumerableFactoryDelegate)))();
             }
             else
             {
                 return (ResolveDelegate<BuilderContext>)
                     EnumerableMethod.MakeGenericMethod(typeArgument)
-                                    .CreateDelegate(typeof(ResolveDelegate<BuilderContext>));
+                        .CreateDelegate(typeof(ResolveDelegate<BuilderContext>));
             }
         };
 

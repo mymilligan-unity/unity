@@ -1,4 +1,7 @@
 ﻿using System;
+#if NET || NETSTANDARD
+using System.Reflection;
+#endif
 using Unity.Builder;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -28,13 +31,13 @@ namespace Unity.Strategies
                 policy = (LifetimeManager)context.Get(typeof(LifetimeManager));
             if (null == policy)
             {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                 if (!context.RegistrationType.GetTypeInfo().IsGenericType) return;
 #else
                 if (!context.RegistrationType.IsGenericType) return;
 #endif
                 var manager = (LifetimeManager)context.Get(context.Type.GetGenericTypeDefinition(),
-                                                           context.Name, typeof(LifetimeManager));
+                    context.Name, typeof(LifetimeManager));
                 if (null == manager) return;
 
                 lock (_genericLifetimeManagerLock)
@@ -49,8 +52,8 @@ namespace Unity.Strategies
                         if (policy is IDisposable)
                         {
                             var scope = policy is ContainerControlledLifetimeManager container
-                                      ? ((UnityContainer)container.Scope)?.LifetimeContainer ?? context.Lifetime
-                                      : context.Lifetime;
+                                ? ((UnityContainer)container.Scope)?.LifetimeContainer ?? context.Lifetime
+                                : context.Lifetime;
                             scope.Add(policy);
                         }
                     }
@@ -92,7 +95,7 @@ namespace Unity.Strategies
             }
 
             // Dynamic registration
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             if (!(registration is ContainerRegistration) && null != type && type.GetTypeInfo().IsGenericType)
                 return true;
 #else

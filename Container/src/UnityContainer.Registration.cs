@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+#if NET || NETSTANDARD
+using System.Reflection;
+#endif
 using Unity.Policy;
 using Unity.Registration;
 using Unity.Storage;
@@ -95,7 +98,7 @@ namespace Unity
             if (null != defaultRegistration) return true;
             if (null != noNameRegistration) return true;
 
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             var info = type.GetTypeInfo();
             if (!info.IsGenericType) return false;
 
@@ -304,8 +307,7 @@ namespace Unity
                 for (var i = _registrations.Buckets[targetBucket]; i >= 0; i = _registrations.Entries[i].Next)
                 {
                     ref var candidate = ref _registrations.Entries[i];
-                    if (candidate.HashCode != hashCode ||
-                        candidate.Key != type)
+                    if (candidate.HashCode != hashCode || candidate.Key != type)
                     {
                         collisions++;
                         continue;

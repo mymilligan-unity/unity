@@ -153,7 +153,7 @@ namespace Unity
 
     internal static class Compatibility
     {
-#if NETSTANDARD1_0
+#if NETSTANDARD
         public static System.Reflection.ConstructorInfo[] GetConstructors(this System.Type type)
         {
             var ctors = type.GetTypeInfo().DeclaredConstructors;

@@ -1,6 +1,9 @@
 using System;
 using System.Globalization;
 using System.Linq;
+#if NET || NETSTANDARD
+using System.Reflection;
+#endif
 using Unity.Builder;
 using Unity.Exceptions;
 using Unity.Injection;
@@ -42,8 +45,8 @@ namespace Unity.Strategies
             {
                 // Check if can create at all
 
-#if NETCOREAPP1_0 || NETSTANDARD1_0
-                if (!(context.Registration is ContainerRegistration) &&  context.RegistrationType.GetTypeInfo().IsGenericTypeDefinition)
+#if NET || NETSTANDARD
+                if (!(context.Registration is ContainerRegistration) && context.RegistrationType.GetTypeInfo().IsGenericTypeDefinition)
 #else
                 if (!(context.Registration is ContainerRegistration) && context.RegistrationType.IsGenericTypeDefinition)
 #endif
@@ -52,7 +55,8 @@ namespace Unity.Strategies
                         "The type {0} is an open generic type. An open generic type cannot be resolved.",
                         context.RegistrationType.FullName), new InvalidRegistrationException());
                 }
-                else if (context.Type.IsArray && context.Type.GetArrayRank() > 1)
+
+                if (context.Type.IsArray && context.Type.GetArrayRank() > 1)
                 {
                     var message = $"Invalid array {context.Type}. Only arrays of rank 1 are supported";
                     throw new ArgumentException(message, new InvalidRegistrationException());
@@ -60,9 +64,9 @@ namespace Unity.Strategies
 
                 // Get resolver factory
                 var factory = context.Registration.Get<ResolveDelegateFactory>() ?? (ResolveDelegateFactory)(
-                              context.Get(context.Type, UnityContainer.All, typeof(ResolveDelegateFactory)) ??
-                              GetGeneric(ref context, typeof(ResolveDelegateFactory)) ?? 
-                              context.Get(null, null, typeof(ResolveDelegateFactory)));
+                    context.Get(context.Type, UnityContainer.All, typeof(ResolveDelegateFactory)) ??
+                    GetGeneric(ref context, typeof(ResolveDelegateFactory)) ??
+                    context.Get(null, null, typeof(ResolveDelegateFactory)));
 
                 // Create plan 
                 if (null != factory)
@@ -94,7 +98,7 @@ namespace Unity.Strategies
             if (context.Registration is ContainerRegistration registration && null != context.Type)
             {
                 // Check if generic
-#if NETCOREAPP1_0 || NETSTANDARD1_0
+#if NET || NETSTANDARD
                 if (context.Type.GetTypeInfo().IsGenericType)
 #else
                 if (context.Type.IsGenericType)
@@ -108,8 +112,8 @@ namespace Unity.Strategies
             else
             {
                 // Check if generic
-#if NETCOREAPP1_0 || NETSTANDARD1_0
-            if (context.RegistrationType.GetTypeInfo().IsGenericType)
+#if NET || NETSTANDARD
+                if (context.RegistrationType.GetTypeInfo().IsGenericType)
 #else
                 if (context.RegistrationType.IsGenericType)
 #endif
@@ -126,7 +130,7 @@ namespace Unity.Strategies
         protected static object GetGeneric(ref BuilderContext context, Type policyInterface, Type type, string name)
         {
             // Check if generic
-#if NETCOREAPP1_0 || NETSTANDARD1_0
+#if NET || NETSTANDARD
             if (type.GetTypeInfo().IsGenericType)
 #else
             if (type.IsGenericType)

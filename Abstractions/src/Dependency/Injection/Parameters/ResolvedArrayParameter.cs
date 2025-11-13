@@ -55,7 +55,7 @@ namespace Unity.Injection
             // Verify array elements
             foreach (var pv in elementValues)
             {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                 var info = _elementType.GetTypeInfo();
                 if ((pv is IEquatable<Type> equatable && equatable.Equals(elementType)) ||
                     (pv is Type type && type == _elementType) || info.IsAssignableFrom(pv?.GetType().GetTypeInfo()))

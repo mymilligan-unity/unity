@@ -31,7 +31,7 @@ namespace Unity.Injection
 
         protected override FieldInfo DeclaredMember(Type type, string name)
         {
-#if NETSTANDARD1_0 || NETCOREAPP1_0 
+#if NETSTANDARD || NET 
             return type.GetTypeInfo().GetDeclaredField(Selection.Name);
 #else
             return type.GetField(Selection.Name);

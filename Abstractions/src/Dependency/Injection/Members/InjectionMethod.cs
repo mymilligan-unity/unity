@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if NETSTANDARD
+using System.Linq;
+#endif
 using System.Reflection;
 
 namespace Unity.Injection
@@ -69,7 +72,7 @@ namespace Unity.Injection
         }
 
 
-#if NETSTANDARD1_0
+#if NETSTANDARD
 
         public override bool Equals(MethodInfo other)
         {

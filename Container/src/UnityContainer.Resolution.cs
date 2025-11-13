@@ -91,7 +91,7 @@ namespace Unity
             {
                 try
                 {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                     if (set[i].RegisteredType.GetTypeInfo().IsGenericTypeDefinition)
 #else
                     if (set[i].RegisteredType.IsGenericTypeDefinition)
@@ -103,7 +103,10 @@ namespace Unity
                     else
                         value = (TElement)resolve(typeof(TElement), set[i].Name, set[i].Registration);
                 }
-                catch (MakeGenericTypeFailedException) { continue; }
+                catch (MakeGenericTypeFailedException)
+                {
+                    continue;
+                }
                 catch (ArgumentException ex) when (ex.InnerException is TypeLoadException)
                 {
                     continue;
@@ -139,7 +142,7 @@ namespace Unity
             {
                 try
                 {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                     if (set[i].RegisteredType.GetTypeInfo().IsGenericTypeDefinition)
 #else
                     if (set[i].Registration is ContainerRegistration && set[i].RegisteredType.IsGenericTypeDefinition)
@@ -151,8 +154,14 @@ namespace Unity
                     else
                         value = (TElement)resolve(typeof(TElement), set[i].Name, set[i].Registration);
                 }
-                catch (MakeGenericTypeFailedException) { continue; }
-                catch (ArgumentException ex) when (ex.InnerException is TypeLoadException) { continue; }
+                catch (MakeGenericTypeFailedException)
+                {
+                    continue;
+                }
+                catch (ArgumentException ex) when (ex.InnerException is TypeLoadException)
+                {
+                    continue;
+                }
 
                 yield return value;
             }
@@ -178,13 +187,14 @@ namespace Unity
         internal static object ResolveArray<TElement>(ref BuilderContext context)
         {
             var type = typeof(TElement);
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             var generic = type.GetTypeInfo().IsGenericType ? type.GetGenericTypeDefinition() : type;
 #else
             var generic = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
 #endif
-            var set = generic == type ? GetNamedRegistrations((UnityContainer)context.Container, type)
-                                      : GetNamedRegistrations((UnityContainer)context.Container, type, generic);
+            var set = generic == type
+                ? GetNamedRegistrations((UnityContainer)context.Container, type)
+                : GetNamedRegistrations((UnityContainer)context.Container, type, generic);
             return ResolveRegistrations<TElement>(ref context, set).ToArray();
         }
 
@@ -197,7 +207,7 @@ namespace Unity
                 ref var entry = ref registrations[i];
                 try
                 {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
                     if (entry.RegisteredType.GetTypeInfo().IsGenericTypeDefinition)
 #else
                     if (entry.RegisteredType.IsGenericTypeDefinition)
@@ -206,7 +216,10 @@ namespace Unity
                     else
                         list.Add((TElement)context.Resolve(type, entry.Name, entry.Registration));
                 }
-                catch (MakeGenericTypeFailedException) { /* Ignore */ }
+                catch (MakeGenericTypeFailedException)
+                {
+                    /* Ignore */
+                }
                 catch (ArgumentException ex) when (ex.InnerException is TypeLoadException)
                 {
                     // Ignore
@@ -219,13 +232,14 @@ namespace Unity
 
         internal static object ResolveGenericArray<TElement>(ref BuilderContext context, Type type)
         {
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             var generic = type.GetTypeInfo().IsGenericType ? type.GetGenericTypeDefinition() : type;
 #else
             var generic = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
 #endif
-            var set = generic == type ? GetNamedRegistrations((UnityContainer)context.Container, type)
-                                      : GetNamedRegistrations((UnityContainer)context.Container, type, generic);
+            var set = generic == type
+                ? GetNamedRegistrations((UnityContainer)context.Container, type)
+                : GetNamedRegistrations((UnityContainer)context.Container, type, generic);
 
             return ResolveGenericRegistrations<TElement>(ref context, set).ToArray();
         }
@@ -329,41 +343,40 @@ namespace Unity
         }
 
 
-        private ResolveDelegate<BuilderContext> ExecutePlan { get; set; } =
-            (ref BuilderContext context) =>
+        private ResolveDelegate<BuilderContext> ExecutePlan { get; set; } = (ref BuilderContext context) =>
+        {
+            var i = -1;
+            BuilderStrategy[] chain = ((InternalRegistration)context.Registration).BuildChain;
+
+            try
             {
-                var i = -1;
-                BuilderStrategy[] chain = ((InternalRegistration)context.Registration).BuildChain;
-
-                try
+                while (!context.BuildComplete && ++i < chain.Length)
                 {
-                    while (!context.BuildComplete && ++i < chain.Length)
-                    {
-                        chain[i].PreBuildUp(ref context);
-                    }
-
-                    while (--i >= 0)
-                    {
-                        chain[i].PostBuildUp(ref context);
-                    }
-                }
-                catch (Exception ex) 
-                {
-                    context.RequiresRecovery?.Recover();
-
-                    if (!(ex.InnerException is InvalidRegistrationException) && 
-                        !(ex is InvalidRegistrationException) &&
-                        !(ex is ObjectDisposedException) && 
-                        !(ex is MemberAccessException) && 
-                        !(ex is MakeGenericTypeFailedException) &&
-                        !(ex is TargetInvocationException))
-                        throw;
-
-                    throw new ResolutionFailedException(context.RegistrationType, context.Name, CreateMessage(ex), ex);
+                    chain[i].PreBuildUp(ref context);
                 }
 
-                return context.Existing;
-            };
+                while (--i >= 0)
+                {
+                    chain[i].PostBuildUp(ref context);
+                }
+            }
+            catch (Exception ex)
+            {
+                context.RequiresRecovery?.Recover();
+
+                if (!(ex.InnerException is InvalidRegistrationException) &&
+                    !(ex is InvalidRegistrationException) &&
+                    !(ex is ObjectDisposedException) &&
+                    !(ex is MemberAccessException) &&
+                    !(ex is MakeGenericTypeFailedException) &&
+                    !(ex is TargetInvocationException))
+                    throw;
+
+                throw new ResolutionFailedException(context.RegistrationType, context.Name, CreateMessage(ex), ex);
+            }
+
+            return context.Existing;
+        };
 
         private object ExecuteValidatingPlan(ref BuilderContext context)
         {

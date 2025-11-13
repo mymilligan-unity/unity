@@ -58,7 +58,7 @@ namespace Unity.Injection
         public ResolveDelegate<TContext> GetResolver<TContext>(Type type)
             where TContext : IResolveContext
         {
-#if NETSTANDARD1_0 || NETCOREAPP1_0 
+#if NETSTANDARD || NET 
             var info = ParameterType?.GetTypeInfo();
             if (null == info || info.IsGenericType && info.ContainsGenericParameters ||
                 ParameterType.IsArray && ParameterType.GetElementType().GetTypeInfo().IsGenericParameter ||
@@ -78,7 +78,7 @@ namespace Unity.Injection
         public ResolveDelegate<TContext> GetResolver<TContext>(ParameterInfo info) 
             where TContext : IResolveContext
         {
-#if NETSTANDARD1_0 || NETCOREAPP1_0 
+#if NETSTANDARD || NET 
             var parameterInfo = ParameterType?.GetTypeInfo();
             if (null == parameterInfo || parameterInfo.IsGenericType && parameterInfo.ContainsGenericParameters ||
                 ParameterType.IsArray && ParameterType.GetElementType().GetTypeInfo().IsGenericParameter ||

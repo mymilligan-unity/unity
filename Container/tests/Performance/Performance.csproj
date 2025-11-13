@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks/>
     <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks/>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\src\package.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>

@@ -1,4 +1,7 @@
 ﻿using System;
+#if NET || NETSTANDARD
+using System.Reflection;
+#endif
 using Unity.Builder;
 using Unity.Injection;
 using Unity.Registration;
@@ -61,15 +64,15 @@ namespace Unity.Strategies
         public static TPolicyInterface GetPolicy<TPolicyInterface>(ref BuilderContext context)
         {
             return (TPolicyInterface)
-            (context.Get(context.RegistrationType, context.Name, typeof(TPolicyInterface)) ?? (
-#if NETCOREAPP1_0 || NETSTANDARD1_0
-                context.RegistrationType.GetTypeInfo().IsGenericType
+                (context.Get(context.RegistrationType, context.Name, typeof(TPolicyInterface)) ?? (
+#if NET || NETSTANDARD
+                    context.RegistrationType.GetTypeInfo().IsGenericType
 #else
-                context.RegistrationType.IsGenericType
+                    context.RegistrationType.IsGenericType
 #endif
-                ? context.Get(context.RegistrationType.GetGenericTypeDefinition(), context.Name, typeof(TPolicyInterface)) ?? 
-                    context.Get(null, null, typeof(TPolicyInterface))
-                : context.Get(null, null, typeof(TPolicyInterface))));
+                        ? context.Get(context.RegistrationType.GetGenericTypeDefinition(), context.Name, typeof(TPolicyInterface)) ??
+                          context.Get(null, null, typeof(TPolicyInterface))
+                        : context.Get(null, null, typeof(TPolicyInterface))));
         }
     }
 }

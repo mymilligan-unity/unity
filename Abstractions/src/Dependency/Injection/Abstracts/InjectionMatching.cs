@@ -44,7 +44,7 @@ namespace Unity.Injection
         {
             if (null == type) return true;
 
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             var typeInfo = type.GetTypeInfo();
             var matchInfo = match.GetTypeInfo();
 
@@ -75,7 +75,7 @@ namespace Unity.Injection
 
             if (null == type) return true;
 
-#if NETSTANDARD1_0 || NETCOREAPP1_0
+#if NETSTANDARD || NET
             var typeInfo = type.GetTypeInfo();
             var matchInfo = match.GetTypeInfo();
 
