@@ -27,7 +27,7 @@ namespace Injection.Parameters
         private static Type FalseArrayType = FalseType.MakeArrayType();
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsAnyTypeData), DynamicDataSourceType.Method)]
         public virtual void EqualsAnyTypeTest(ParameterValue parameter)
         {
@@ -42,7 +42,7 @@ namespace Injection.Parameters
             Assert.IsTrue(parameter.Equals(typeof(int[])));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsValueTypeData), DynamicDataSourceType.Method)]
         public virtual void EqualsValueTypeTest(ParameterValue parameter)
         {
@@ -52,7 +52,7 @@ namespace Injection.Parameters
             Assert.IsFalse(parameter.Equals(typeof(string)));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsArrayTypeData), DynamicDataSourceType.Method)]
         public virtual void EqualsArrayTypeTest(ParameterValue parameter)
         {
@@ -64,7 +64,7 @@ namespace Injection.Parameters
             Assert.IsFalse(parameter.Equals(typeof(int[])));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsGenericTypeData), DynamicDataSourceType.Method)]
         public virtual void EqualsGenericTypeTest(ParameterValue parameter)
         {
@@ -74,7 +74,7 @@ namespace Injection.Parameters
             Assert.IsFalse(parameter.Equals(typeof(List<string>)));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsGenericParameterData), DynamicDataSourceType.Method)]
         public virtual void EqualsGenericTest(ParameterValue parameter)
         {
@@ -84,7 +84,7 @@ namespace Injection.Parameters
             Assert.IsFalse(parameter.Equals(FalseType));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetEqualsGenericArrayParameterData), DynamicDataSourceType.Method)]
         public virtual void EqualsGenericArrayTest(ParameterValue parameter)
         {

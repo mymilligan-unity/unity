@@ -150,7 +150,7 @@ namespace Unity.Tests.v5.Override
         [TestMethod]
         public void TypeBasedOverrideNullCheckForResolverOverride()
         {
-            AssertHelper.ThrowsException<ArgumentNullException>(() => new TypeBasedOverride(typeof(TypeToInject2ForTypeOverride), null));
+            Assert.Throws<ArgumentNullException>(() => new TypeBasedOverride(typeof(TypeToInject2ForTypeOverride), null));
         }
 
         [TestMethod]

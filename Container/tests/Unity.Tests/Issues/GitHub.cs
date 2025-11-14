@@ -114,7 +114,7 @@ namespace Unity.Tests.v5.Issues
                 c => { throw new InvalidOperationException(); },
                 new SingletonLifetimeManager());
 
-            Assert.ThrowsException<ResolutionFailedException>(() => ioc.Resolve<IFoo>());
+            Assert.Throws<ResolutionFailedException>(() => ioc.Resolve<IFoo>());
         }
 
         [TestMethod]

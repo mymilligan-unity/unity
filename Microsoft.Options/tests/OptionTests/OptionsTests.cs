@@ -88,7 +88,7 @@ namespace Tests.OptionTests
             Assert.AreEqual("stuff", ComplexOptions.StaticProperty);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("ReadOnly")]
         [DataRow("PrivateSetter")]
         [DataRow("ProtectedSetter")]
@@ -109,7 +109,7 @@ namespace Tests.OptionTests
             Assert.IsNull(options.GetType().GetProperty(property).GetValue(options));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("PrivateSetter")]
         [DataRow("ProtectedSetter")]
         [DataRow("InternalSetter")]
@@ -129,7 +129,7 @@ namespace Tests.OptionTests
             Assert.AreEqual("stuff", options.GetType().GetProperty(property).GetValue(options));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("PrivateSetter")]
         [DataRow("ProtectedSetter")]
         [DataRow("InternalSetter")]
@@ -191,10 +191,10 @@ namespace Tests.OptionTests
             Assert.AreEqual("_-ABC", option.Message);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(Configure_GetsNullableOptionsFromConfiguration_Data))]
         public void Configure_GetsNullableOptionsFromConfiguration(IDictionary<string, string> configValues,
-                                                                   IDictionary<string, object> expectedValues)
+            IDictionary<string, object> expectedValues)
         {
             // Arrange
             var builder = new ConfigurationBuilder().AddInMemoryCollection(configValues);
@@ -230,7 +230,7 @@ namespace Tests.OptionTests
             };
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(Configure_GetsEnumOptionsFromConfiguration_Data))]
         public void Configure_GetsEnumOptionsFromConfiguration(
             IDictionary<string, string> configValues,

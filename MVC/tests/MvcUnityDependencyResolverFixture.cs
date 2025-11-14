@@ -68,7 +68,7 @@ namespace Unity.AspNet.Mvc.Tests
             {
                 var resolver = new UnityDependencyResolver(container);
 
-                AssertThrows<ResolutionFailedException>(() => resolver.GetService(typeof(TestController)));
+                Assert.Throws<ResolutionFailedException>(() => resolver.GetService(typeof(TestController)));
             }
         }
 
@@ -110,26 +110,6 @@ namespace Unity.AspNet.Mvc.Tests
             public void Execute(System.Web.Routing.RequestContext requestContext)
             {
             }
-        }
-
-        private static void AssertThrows<TException>(Action action)
-            where TException : Exception
-        {
-            try
-            {
-                action();
-            }
-            catch (TException)
-            {
-                return;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected exception {0}, but instead exception {1} was thrown",
-                    typeof(TException).Name,
-                    ex.GetType().Name);
-            }
-            Assert.Fail("Expected exception {0}, no exception thrown", typeof(TException).Name);
         }
     }
 }

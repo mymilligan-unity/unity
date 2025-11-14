@@ -9,7 +9,7 @@ namespace Injection.Matching
     [TestClass]
     public class SignatureMatchTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetSignatureMatchData), DynamicDataSourceType.Method)]
         public void SignatureMatchTest(object[] data, MethodBase info, bool result)
         {

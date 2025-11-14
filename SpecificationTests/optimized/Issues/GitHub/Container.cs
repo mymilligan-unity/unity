@@ -8,7 +8,6 @@ namespace Unity.Specification.Issues.GitHub
     public abstract partial class SpecificationTests 
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         // https://github.com/unitycontainer/container/issues/212
         public virtual void Issue_Container_212()
         {
@@ -16,7 +15,7 @@ namespace Unity.Specification.Issues.GitHub
             Container.RegisterType<IService, InvalidService>();
 
             // Act
-            var error = Container.Resolve<IService>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IService>());
         }
 
         [TestMethod]
@@ -26,7 +25,7 @@ namespace Unity.Specification.Issues.GitHub
             // Arrange
             IUnityContainer child1 = Container.CreateChildContainer();
             IUnityContainer child2 = child1.CreateChildContainer();
-            
+
             // Act
             child1.RegisterType<IService, Service>();
 
@@ -78,9 +77,9 @@ namespace Unity.Specification.Issues.GitHub
             // Act
             var defaultValue = Container.Resolve<Foo>().ToString();
             var depValue = Container.Resolve<Foo>(Override.Dependency<string>(depOverride))
-                                       .ToString();
+                .ToString();
             var parValue = Container.Resolve<Foo>(Override.Parameter<string>(parOverride))
-                                       .ToString();
+                .ToString();
 
             // Verify
             Assert.AreSame(noOverride, defaultValue);
@@ -96,7 +95,7 @@ namespace Unity.Specification.Issues.GitHub
             Container.RegisterType<IAnimal, Cat>();
 
             var child = Container.CreateChildContainer()
-                                 .RegisterType<IAnimal, Dog>(); //this should overwrite previous registration
+                .RegisterType<IAnimal, Dog>(); //this should overwrite previous registration
 
             // Act
             var zoo = child.Resolve<Zoo>();
@@ -116,12 +115,12 @@ namespace Unity.Specification.Issues.GitHub
             Container.RegisterType<IAnimal, Cat>();
 
             var child = Container.CreateChildContainer()
-                                 .RegisterType<IAnimal, Dog>(); //this should overwrite previous registration
+                .RegisterType<IAnimal, Dog>(); //this should overwrite previous registration
             // Act
             var zoo = child.Resolve<Zoo>();
             var animal = zoo.GetAnimal();
 
-            // Verify
+// Verify
             Assert.IsNotNull(zoo);
             Assert.IsNotNull(animal);
             Assert.IsInstanceOfType(animal, typeof(Dog));

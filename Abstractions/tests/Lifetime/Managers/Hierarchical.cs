@@ -10,10 +10,9 @@ namespace Lifetime.Managers
         protected override LifetimeManager GetManager() => new HierarchicalLifetimeManager();
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public override void TryGetSetNoContainerTest()
         {
-            base.TryGetSetNoContainerTest();
+            Assert.Throws<ArgumentNullException>(() => base.TryGetSetNoContainerTest());
         }
 
         [TestMethod]

@@ -27,8 +27,7 @@ namespace Unity.Tests.v5.Generics
         public void ResolveConfiguredGenericType()
         {
             IUnityContainer container = new UnityContainer()
-                .RegisterType(typeof(GenericArrayPropertyDependency<>), "testing",
-                    new InjectionProperty("Stuff"))
+                .RegisterType(typeof(GenericArrayPropertyDependency<>), "testing", new InjectionProperty("Stuff"))
                 .RegisterInstance<string>("first", "first")
                 .RegisterInstance<string>("second", "second");
 
@@ -197,7 +196,6 @@ namespace Unity.Tests.v5.Generics
         public class ServiceB<T> : IService<T> { }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void FailedResolveAllTest()
         {
             var container = new UnityContainer();
@@ -205,11 +203,10 @@ namespace Unity.Tests.v5.Generics
             container.RegisterType<IFoo, Foo>("1");
             container.RegisterFactory<IFoo>("2", c => { throw new InvalidOperationException(); });
 
-            container.ResolveAll<IFoo>();
+            Assert.Throws<InvalidOperationException>(() => container.ResolveAll<IFoo>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void FailedResolveEnumerableTest()
         {
             var container = new UnityContainer();
@@ -217,9 +214,7 @@ namespace Unity.Tests.v5.Generics
             container.RegisterType<IFoo, Foo>("1");
             container.RegisterFactory<IFoo>("2", c => { throw new InvalidOperationException(); });
 
-            var instance = container.Resolve<IEnumerable<IFoo>>().ToArray();
-
-            Assert.Fail("Should never reach this line");
+            Assert.Throws<InvalidOperationException>(() => container.Resolve<IEnumerable<IFoo>>().ToArray());
         }
 
         [TestMethod]

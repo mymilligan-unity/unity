@@ -32,29 +32,29 @@ namespace Injection.Members
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))] // TODO: wrong exception
         public virtual void MemberInfoCold()
         {
             // Arrange
             var member = GetDefaultMember();
-            _ = member.MemberInfo(typeof(TestClass<object>));
+
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() => member.MemberInfo(typeof(TestClass<object>))); // TODO: wrong exception
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public virtual void NoMatchAddPolicies()
         {
+            // Arrange
             var member = GetDefaultMember();
             var set = new PolicySet();
             var cast = set as IPolicySet;
 
-            // Act
-            member.AddPolicies<IResolveContext, IPolicySet>(typeof(NoMatchClass), typeof(NoMatchClass), null, ref cast);
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => member.AddPolicies<IResolveContext, IPolicySet>(typeof(NoMatchClass), typeof(NoMatchClass), null, ref cast));
         }
 
         [Ignore] // TODO: Inconsistent across members
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public virtual void NoMatchMemberInfo()
         {
             // Arrange
@@ -64,7 +64,9 @@ namespace Injection.Members
 
             // Act
             member.AddPolicies<IResolveContext, IPolicySet>(typeof(TestClass<>), typeof(TestClass<>), null, ref cast);
-            _ = member.MemberInfo(typeof(NoMatchClass));
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => member.MemberInfo(typeof(NoMatchClass)));
         }
 
         [TestMethod]
@@ -108,11 +110,10 @@ namespace Injection.Members
             var members = member.DeclaredMembers(typeof(TestClass<object>))
                                 .ToArray();
             // Validate
-            Assert.AreEqual(2, members.Length);
+            Assert.HasCount(2, members);
         }
 
         protected abstract InjectionMember<TMemberInfo, TData> GetDefaultMember();
-
     }
 
     public class SimpleClass
@@ -131,9 +132,17 @@ namespace Injection.Members
     public class TestClass<T>
     {
         static TestClass() { }
-        public TestClass() { }
+
+        public TestClass()
+        {
+        }
+
         private TestClass(string _) { }
-        protected TestClass(long _) { }
+
+        protected TestClass(long _)
+        {
+        }
+
         internal TestClass(int _) { }
 
 #pragma warning disable CS0169
@@ -158,7 +167,12 @@ namespace Injection.Members
 
         static void TestMethod() { }
         public void TestMethod(string _) { }
-        public void TestMethod(string a, T b, out object c) { c = null; }
+
+        public void TestMethod(string a, T b, out object c)
+        {
+            c = null;
+        }
+
         private void TestMethod(int _) { }
         protected void TestMethod(long _) { }
     }

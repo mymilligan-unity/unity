@@ -41,7 +41,7 @@ namespace Unity.Specification.Diagnostic.Registration.Types
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ArgumetTestData))]
         public void ArgumentValidationDiagnostic(Type typeFrom, Type typeTo, string name, ITypeLifetimeManager lifetimeManager, Type manager)
         {
@@ -56,7 +56,7 @@ namespace Unity.Specification.Diagnostic.Registration.Types
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ArgumetTestDataFailing))]
         public void ArgumentValidationDiagnosticFailing(Type typeFrom, Type typeTo, string name, ITypeLifetimeManager lifetimeManager, Type exception)
         {

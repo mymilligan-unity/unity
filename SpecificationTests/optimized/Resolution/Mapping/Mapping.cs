@@ -46,7 +46,6 @@ namespace Unity.Specification.Resolution.Mapping
             var service2 = Container.Resolve<Foo>(Name);
             var service3 = Container.Resolve<Foo>(Legacy);
 
-
             // Assert
             Assert.IsNotNull(service1);
             Assert.IsNotNull(service2);
@@ -100,7 +99,8 @@ namespace Unity.Specification.Resolution.Mapping
 
             // Act
             var service1 = Container.CreateChildContainer()
-                                    .Resolve<IFoo>();
+                .Resolve<IFoo>();
+
             // Assert
             Assert.IsNotNull(service1);
             Assert.AreSame(service, service1);
@@ -154,11 +154,10 @@ namespace Unity.Specification.Resolution.Mapping
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void ThrowsExceptionOnNagative()
         {
             Container.RegisterType<IFoo1, IFoo1>();
-            Container.Resolve<IFoo1>("ATest");
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo1>("ATest"));
         }
 
         [TestMethod]
@@ -201,7 +200,7 @@ namespace Unity.Specification.Resolution.Mapping
             // Arrange
             Container.RegisterType<IService, Service>(new HierarchicalLifetimeManager());
 
-            // Act
+// Act
             using (var outerScope = Container.CreateChildContainer())
             using (var innerScope = outerScope.CreateChildContainer())
             {
@@ -250,6 +249,7 @@ namespace Unity.Specification.Resolution.Mapping
         {
             // Arrange
             Container.RegisterType<IService, Service>(new HierarchicalLifetimeManager());
+
             // Act
             using (var outerScope = Container.CreateChildContainer())
             using (var innerScope = outerScope.CreateChildContainer())
@@ -261,8 +261,6 @@ namespace Unity.Specification.Resolution.Mapping
                 Assert.AreNotSame(outerScopedService, innerScopedService);
             }
         }
-
-
 
         [TestMethod]
         public void ServicesRegisteredWithImplementationTypeCanBeResolved()
@@ -360,6 +358,5 @@ namespace Unity.Specification.Resolution.Mapping
                 Assert.AreNotSame(scopedService1, scopedService2);
             }
         }
-
     }
 }

@@ -70,7 +70,6 @@ namespace Unity.Specification.Resolution.Deferred
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WithNotMatchingName()
         {
             // Act
@@ -81,11 +80,7 @@ namespace Unity.Specification.Resolution.Deferred
             Assert.IsInstanceOfType(resolver, typeof(Func<IService>));
 
             // This must throw
-            var instance = resolver();
-            Assert.IsNotNull(instance);
-            Assert.IsInstanceOfType(instance, typeof(IService));
-
-            Assert.Fail($"Failed to throw and the instance is not null: {null != instance}");
+            Assert.Throws<ResolutionFailedException>(() => resolver());
         }
 
         [TestMethod]
@@ -101,7 +96,7 @@ namespace Unity.Specification.Resolution.Deferred
 
             // Verify
             Assert.IsInstanceOfType(resolver, typeof(Func<IEnumerable<string>>));
-            AreEquivalent(new string[] { "first", "second", "third" }, resolver().ToArray() );
+            AreEquivalent(new string[] { "first", "second", "third" }, resolver().ToArray());
         }
     }
 }

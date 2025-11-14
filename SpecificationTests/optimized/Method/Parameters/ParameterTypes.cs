@@ -5,19 +5,17 @@ namespace Unity.Specification.Method.Parameters
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void RefParameter()
         {
             // Act
-            Container.Resolve<TypeWithMethodWithRefParameter>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithMethodWithRefParameter>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void OutParameter()
         {
             // Act
-            Container.Resolve<TypeWithMethodWithOutParameter>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithMethodWithOutParameter>());
         }
     }
 }

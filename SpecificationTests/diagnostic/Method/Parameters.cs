@@ -9,7 +9,6 @@ namespace Unity.Specification.Diagnostic.Method.Parameters
         public override void Setup() => base.Setup();
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void ChainedExecuteMethodBaseline()
         {
             // Setup
@@ -18,10 +17,7 @@ namespace Unity.Specification.Diagnostic.Method.Parameters
                     Invoke.Method("ChainedExecute"));
 
             // Act
-            var result = Container.Resolve<ICommand<Account>>();
-            
-            // Verify
-            Assert.Fail();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ICommand<Account>>());
         }
     }
 }

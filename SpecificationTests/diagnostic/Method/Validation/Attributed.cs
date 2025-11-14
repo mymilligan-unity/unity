@@ -5,51 +5,45 @@ namespace Unity.Specification.Diagnostic.Method.Validation
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnStatic()
         {
             // Act
-            var result = Container.Resolve<AttributeStaticType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributeStaticType>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnPrivate()
         {
             // Act
-            var result = Container.Resolve<AttributePrivateType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributePrivateType>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnProtected()
         {
             // Act
-            var result = Container.Resolve<AttributeProtectedType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributeProtectedType>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnOpenGeneric()
         {
             // Act
-            var result = Container.Resolve<AttributeOpenGenericType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributeOpenGenericType>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnOutParam()
         {
             // Act
-            var result = Container.Resolve<AttributeOutParamType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributeOutParamType>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void AttributeOnRefParam()
         {
             // Act
-            var result = Container.Resolve<AttributeRefParamType>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<AttributeRefParamType>());
         }
     }
 }

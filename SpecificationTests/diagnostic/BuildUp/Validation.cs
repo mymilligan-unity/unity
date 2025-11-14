@@ -7,7 +7,6 @@ namespace Unity.Specification.Diagnostic.BuildUp
     {
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void BuildBaseAndChildObject3()
         {
             BaseStub1 objBase = new BaseStub1();
@@ -19,11 +18,10 @@ namespace Unity.Specification.Diagnostic.BuildUp
             Assert.IsNotNull(objBase.BaseProp);
 
             // "type of the object should match"
-            Container.BuildUp(typeof(ChildStub1), objBase);
+            Assert.Throws<ArgumentException>(() => Container.BuildUp(typeof(ChildStub1), objBase));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void BuildUnmatchedObject2()
         {
             BuildUnmatchedObject2__PropertyDependencyClassStub2 obj2 = new BuildUnmatchedObject2__PropertyDependencyClassStub2();
@@ -33,7 +31,7 @@ namespace Unity.Specification.Diagnostic.BuildUp
             Assert.IsNull(obj2.MySecondObj);
 
             // "type of the object should match"
-            var instance = Container.BuildUp(typeof(BuildUnmatchedObject2_PropertyDependencyClassStub1), obj2);
+            Assert.Throws<ArgumentException>(() => Container.BuildUp(typeof(BuildUnmatchedObject2_PropertyDependencyClassStub1), obj2));
         }
     }
 }

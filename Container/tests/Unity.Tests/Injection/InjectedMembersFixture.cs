@@ -138,22 +138,21 @@ namespace Unity.Tests.v5.Injection
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ConfiguringInjectionConstructorThatDoesNotExistThrows()
         {
             IUnityContainer container = new UnityContainer();
 
-            container.RegisterType<GuineaPig>(
-                new InjectionConstructor(typeof(string), typeof(string)));
+            Assert.Throws<InvalidOperationException>(() =>
+                container.RegisterType<GuineaPig>(
+                    new InjectionConstructor(typeof(string), typeof(string))));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void RegisterTypeThrowsIfTypeIsNull()
         {
             IUnityContainer container = new UnityContainer();
 
-            container.RegisterType(null);
+            Assert.Throws<ArgumentNullException>(() => container.RegisterType(null));
         }
 
         public class GuineaPig

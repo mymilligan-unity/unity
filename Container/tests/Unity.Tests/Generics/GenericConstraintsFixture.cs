@@ -20,7 +20,7 @@ namespace Unity.Tests.v5.Generics
 
             ioc.RegisterType(typeof(IFoo<>), typeof(Foo<>));
 
-            Assert.ThrowsException<ResolutionFailedException>(() => ioc.Resolve<IFoo<string>>());
+            Assert.Throws<ResolutionFailedException>(() => ioc.Resolve<IFoo<string>>());
         }
 
         [TestMethod]

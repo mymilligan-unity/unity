@@ -20,7 +20,6 @@ namespace Unity.Specification.Resolution.Basics
             Assert.IsNotNull(Container.Resolve<object>());
         }
 
-
         [TestMethod]
         public void UnregisteredType()
         {
@@ -140,9 +139,7 @@ namespace Unity.Specification.Resolution.Basics
             Assert.IsInstanceOfType(Container.Resolve<IFoo>(Name), typeof(Foo1));
         }
 
-
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void NamedTypeNegative()
         {
             // Arrange
@@ -150,11 +147,10 @@ namespace Unity.Specification.Resolution.Basics
                      .RegisterType<IFoo, Foo1>(Name);
 
             // Act / Validate
-            Container.Resolve<IFoo>("none");
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo>("none"));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void NamedInstanceNegative()
         {
             // Arrange
@@ -162,11 +158,10 @@ namespace Unity.Specification.Resolution.Basics
                      .RegisterInstance<IFoo>(Name, new Foo1());
 
             // Act / Validate
-            Container.Resolve<IFoo>("none");
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo>("none"));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void NamedFactoryNegative()
         {
             // Arrange
@@ -174,19 +169,17 @@ namespace Unity.Specification.Resolution.Basics
                      .RegisterFactory<IFoo>(Name, (c, t, n) => new Foo1());
 
             // Act / Validate
-            Container.Resolve<IFoo>("none");
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo>("none"));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void UserExceptionIsNotWrappad()
         {
             // Arrange
             Container.RegisterFactory<IFoo>(c => { throw new InvalidOperationException("User error"); });
 
             // Act
-            Container.Resolve<IFoo>();
+            Assert.Throws<InvalidOperationException>(() => Container.Resolve<IFoo>());
         }
-
     }
 }

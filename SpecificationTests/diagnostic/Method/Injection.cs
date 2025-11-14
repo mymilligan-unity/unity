@@ -4,24 +4,18 @@ namespace Unity.Specification.Diagnostic.Method.Injection
 {
     public abstract partial class SpecificationTests : Specification.Method.Injection.SpecificationTests
     {
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void InjectingStaticMethod() => base.InjectingStaticMethod();
+        public override void InjectingStaticMethod() => Assert.Throws<ResolutionFailedException>(() => base.InjectingStaticMethod());
 
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void MethodPassingVoid() => base.MethodPassingVoid();
+        public override void MethodPassingVoid() => Assert.Throws<ResolutionFailedException>(() => base.MethodPassingVoid());
 
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void ReturningInt() => base.ReturningInt();
+        public override void ReturningInt() => Assert.Throws<ResolutionFailedException>(() => base.ReturningInt());
 
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void ReturningVoid() => base.ReturningVoid();
+        public override void ReturningVoid() => Assert.Throws<ResolutionFailedException>(() => base.ReturningVoid());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void StaticIsIgnoredInOptimized() => base.StaticIsIgnoredInOptimized();
+        public override void StaticIsIgnoredInOptimized() => Assert.Throws<ResolutionFailedException>(() => base.StaticIsIgnoredInOptimized());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void InjectTypeWithAnnotatdStatic() => base.InjectTypeWithAnnotatdStatic();
+        public override void InjectTypeWithAnnotatdStatic() => Assert.Throws<ResolutionFailedException>(() => base.InjectTypeWithAnnotatdStatic());
     }
 }

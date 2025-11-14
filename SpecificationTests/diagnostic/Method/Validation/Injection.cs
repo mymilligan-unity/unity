@@ -19,62 +19,56 @@ namespace Unity.Specification.Diagnostic.Method.Validation
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectPrivateMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method("PrivateMethod"));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method("PrivateMethod")));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectProtectedMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method("ProtectedMethod"));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method("ProtectedMethod")));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectStaticMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method(nameof(InjectedType.StaticMethod)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method(nameof(InjectedType.StaticMethod))));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectOpenGenericMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method(nameof(InjectedType.OpenGenericMethod)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method(nameof(InjectedType.OpenGenericMethod))));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectOutParamMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method(nameof(InjectedType.OutParamMethod)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method(nameof(InjectedType.OutParamMethod))));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InjectRefParamMethod()
         {
             // Act
-            Container.RegisterType<InjectedType>(
-                Invoke.Method(nameof(InjectedType.RefParamMethod)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<InjectedType>(
+                Invoke.Method(nameof(InjectedType.RefParamMethod))));
         }
     }
 }

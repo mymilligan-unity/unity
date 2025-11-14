@@ -6,39 +6,29 @@ namespace Unity.Specification.Constructor.Parameters
     {
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void UnresolvableParameter()
         {
             // Act
-            var instance = Container.Resolve<Unresolvable>();
-
-            // Validate
-            Assert.IsNotNull(instance);
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<Unresolvable>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void RefParameter()
         {
-            Container.Resolve<TypeWithRefParameter>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithRefParameter>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void OutParameter()
         {
-            Container.Resolve<TypeWithOutParameter>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithOutParameter>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void StructParameter()
         {
             // Act
-            var instance = Container.Resolve<TypeWithStructParameter>();
-
-            // Validate
-            Assert.IsNotNull(instance);
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithStructParameter>());
         }
 
         [TestMethod]

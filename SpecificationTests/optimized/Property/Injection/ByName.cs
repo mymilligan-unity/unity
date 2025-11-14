@@ -13,7 +13,7 @@ namespace Unity.Specification.Property.Injection
             // Verify
             Assert.IsNotNull(result);
             Assert.IsNull(result.Property);
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -26,7 +26,6 @@ namespace Unity.Specification.Property.Injection
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void BogusName()
         {
             // Act
@@ -34,7 +33,7 @@ namespace Unity.Specification.Property.Injection
                 Resolve.Property("BogusName"));
 
             // Act
-            _ = Container.Resolve<ObjectWithThreeProperties>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ObjectWithThreeProperties>());
         }
 
         [TestMethod]
@@ -51,7 +50,7 @@ namespace Unity.Specification.Property.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Property);
             Assert.IsInstanceOfType(result.Property, typeof(object));
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -69,7 +68,7 @@ namespace Unity.Specification.Property.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Property);
             Assert.IsInstanceOfType(result.Property, typeof(object));
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -83,9 +82,8 @@ namespace Unity.Specification.Property.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Dependency);
             Assert.IsNull(result.Dependency.Property);
-            Assert.AreEqual(result.Dependency.Name, Name);
+            Assert.AreEqual(Name, result.Dependency.Name);
             Assert.IsNotNull(result.Dependency.Container);
         }
-
     }
 }

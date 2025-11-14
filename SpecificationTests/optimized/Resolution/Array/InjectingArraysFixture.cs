@@ -21,7 +21,7 @@ namespace Unity.Specification.Resolution.Array
             var resolved = Container.Resolve<TypeWithArrayConstructorParameter>();
 
             Assert.IsNotNull(resolved.Loggers);
-            Assert.AreEqual(2, resolved.Loggers.Length);
+            Assert.HasCount(2, resolved.Loggers);
             Assert.AreSame(o1, resolved.Loggers[0]);
             Assert.AreSame(o2, resolved.Loggers[1]);
         }
@@ -41,7 +41,7 @@ namespace Unity.Specification.Resolution.Array
             var resolved = Container.Resolve<TypeWithArrayConstructorParameter>();
 
             Assert.IsNotNull(resolved.Loggers);
-            Assert.AreEqual(2, resolved.Loggers.Length);
+            Assert.HasCount(2, resolved.Loggers);
             Assert.AreSame(o1, resolved.Loggers[0]);
             Assert.AreSame(o2, resolved.Loggers[1]);
         }
@@ -64,7 +64,7 @@ namespace Unity.Specification.Resolution.Array
             // Act
             var result = Container.Resolve<TypeWithArrayConstructorParameter>();
 
-            Assert.AreEqual(3, result.Loggers.Length);
+            Assert.HasCount(3, result.Loggers);
             Assert.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
             Assert.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
             Assert.AreSame(logger2, result.Loggers[2]);
@@ -89,24 +89,23 @@ namespace Unity.Specification.Resolution.Array
             // Act
             var result = Container.Resolve<TypeWithArrayConstructorParameter>();
 
-            Assert.AreEqual(3, result.Loggers.Length);
+            Assert.HasCount(3, result.Loggers);
             Assert.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
             Assert.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
             Assert.AreSame(logger2, result.Loggers[2]);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void CreatingResolvedArrayParameterWithValuesOfNonCompatibleType()
         {
             // Arrange
             ILogger logger2 = new SpecialLogger();
 
-            //Act
-            var resolver = new ResolvedArrayParameter<ILogger>(
-                    new ResolvedParameter<ILogger>("log1"),
-                    typeof(int),
-                    logger2);
+            // Act
+            Assert.Throws<InvalidOperationException>(() => new ResolvedArrayParameter<ILogger>(
+                new ResolvedParameter<ILogger>("log1"),
+                typeof(int),
+                logger2));
         }
 
         [TestMethod]
@@ -122,7 +121,7 @@ namespace Unity.Specification.Resolution.Array
 
             // Validate
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Loggers.Length);
+            Assert.HasCount(2, result.Loggers);
             Assert.AreSame(expected[0], result.Loggers[0]);
             Assert.AreSame(expected[1], result.Loggers[1]);
         }

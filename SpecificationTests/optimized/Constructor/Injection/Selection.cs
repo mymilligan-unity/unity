@@ -128,7 +128,7 @@ namespace Unity.Specification.Constructor.Injection
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ConstructorSelectionTestData))]
         public virtual void Selection(string name, Type typeFrom, Type typeTo, Type typeToResolve, object[] parameters, Func<object, bool> validator)
         {
@@ -144,7 +144,7 @@ namespace Unity.Specification.Constructor.Injection
             Assert.IsTrue(validator?.Invoke(result) ?? true);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(DefaultConstructorTestData))]
         public void Default(Type typeFrom, Type typeTo, string name, Type typeToResolve)
         {
@@ -160,17 +160,15 @@ namespace Unity.Specification.Constructor.Injection
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(DefaultConstructorTestDataFailed))]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void DefaultCtorValidation(Type type, string name)
         {
             // Setup
             Container.RegisterType((Type)null, type, name, null, Invoke.Constructor());
 
             // Act
-            var result = Container.Resolve(type, name);
-            Assert.IsNotNull(result);
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve(type, name));
         }
 
     }

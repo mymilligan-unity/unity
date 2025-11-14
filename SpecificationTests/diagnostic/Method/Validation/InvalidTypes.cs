@@ -7,33 +7,29 @@ namespace Unity.Specification.Diagnostic.Method.Validation
     {
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void GenericInjectionMethod()
         {
             // Act
-            Container.RegisterType<OpenGenericInjectionMethod>(
-                Invoke.Method(nameof(OpenGenericInjectionMethod.InjectMe)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<OpenGenericInjectionMethod>(
+                Invoke.Method(nameof(OpenGenericInjectionMethod.InjectMe))));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void MethodWithRefParameter()
         {
             // Act
-            Container.RegisterType<TypeWithMethodWithInvalidParameter>(
-                Invoke.Method(nameof(TypeWithMethodWithInvalidParameter.MethodWithRefParameter)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<TypeWithMethodWithInvalidParameter>(
+                Invoke.Method(nameof(TypeWithMethodWithInvalidParameter.MethodWithRefParameter))));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void MethodWithOutParameter()
         {
             // Act
-            Container.RegisterType<TypeWithMethodWithInvalidParameter>(
-                Invoke.Method(nameof(TypeWithMethodWithInvalidParameter.MethodWithOutParameter)));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<TypeWithMethodWithInvalidParameter>(
+                Invoke.Method(nameof(TypeWithMethodWithInvalidParameter.MethodWithOutParameter))));
         }
-
     }
 }

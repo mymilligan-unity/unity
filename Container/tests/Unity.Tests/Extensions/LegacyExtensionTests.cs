@@ -34,7 +34,6 @@ namespace Unity.Tests.v5
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void LegacySelection()
         {
             // Setup
@@ -42,14 +41,10 @@ namespace Unity.Tests.v5
             container.AddNewExtension<Legacy>();
 
             // Act
-            var instance = container.Resolve<ObjectWithMultipleConstructors>();
-
-            // Validate
-            Assert.AreEqual(ObjectWithMultipleConstructors.Three, instance.Signature);
+            Assert.Throws<ResolutionFailedException>(() => container.Resolve<ObjectWithMultipleConstructors>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void LegacySelectionDiagnostic()
         {
             // Setup
@@ -58,10 +53,7 @@ namespace Unity.Tests.v5
             container.AddNewExtension<Legacy>();
 
             // Act
-            var instance = container.Resolve<ObjectWithMultipleConstructors>();
-
-            // Validate
-            Assert.AreEqual(ObjectWithMultipleConstructors.Three, instance.Signature);
+            Assert.Throws<ResolutionFailedException>(() => container.Resolve<ObjectWithMultipleConstructors>());
         }
 
         [TestMethod]

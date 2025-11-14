@@ -6,32 +6,26 @@ namespace Unity.Specification.Diagnostic.Constructor.Injection
     public abstract partial class SpecificationTests : Specification.Constructor.Injection.SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void NoBogusConstructor() => base.NoBogusConstructor();
+        public override void NoBogusConstructor() => Assert.Throws<ResolutionFailedException>(() => base.NoBogusConstructor());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void NoBogusValuesConstructor() => base.NoBogusValuesConstructor();
+        public override void NoBogusValuesConstructor() => Assert.Throws<ResolutionFailedException>(() => base.NoBogusValuesConstructor());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void NoDefaultConstructor() => base.NoDefaultConstructor();
+        public override void NoDefaultConstructor() => Assert.Throws<ResolutionFailedException>(() => base.NoDefaultConstructor());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void NoConstructor() => base.NoConstructor();
+        public override void NoConstructor() => Assert.Throws<ResolutionFailedException>(() => base.NoConstructor());
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void MultipleConstructor() => base.MultipleConstructor();
+        public override void MultipleConstructor() => Assert.Throws<ResolutionFailedException>(() => base.MultipleConstructor());
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ConstructorSelectionTestData), typeof(Specification.Constructor.Injection.SpecificationTests))]
         public override void Selection(string name, Type typeFrom, Type typeTo, Type typeToResolve, object[] parameters, Func<object, bool> validator) => 
             base.Selection(name, typeFrom, typeTo, typeToResolve, parameters, validator);
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
-        public override void AmbiguousCtorInGraph() => base.AmbiguousCtorInGraph();
+        public override void AmbiguousCtorInGraph() => Assert.Throws<ResolutionFailedException>(() => base.AmbiguousCtorInGraph());
     }
 }

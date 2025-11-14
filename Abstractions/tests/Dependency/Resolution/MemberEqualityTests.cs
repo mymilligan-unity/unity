@@ -42,7 +42,7 @@ namespace Resolution.Overrides
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetTestResolvers), DynamicDataSourceType.Method)]
         public void EqualsTest(ResolverOverride instance, object other, bool result)
         {

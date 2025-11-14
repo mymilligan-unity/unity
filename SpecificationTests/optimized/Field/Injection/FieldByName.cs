@@ -11,17 +11,16 @@ namespace Unity.Specification.Field.Injection
             Container.RegisterType<ObjectWithThreeFields>(
                 Resolve.Field("Bogus Name"));
         }
-        
+
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void BogusName()
         {
             // Act
             Container.RegisterType<ObjectWithThreeFields>(
                 Resolve.Field("BogusName"));
-            
+
             // Act
-            _ = Container.Resolve<ObjectWithThreeFields>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ObjectWithThreeFields>());
         }
 
         [TestMethod]
@@ -38,7 +37,7 @@ namespace Unity.Specification.Field.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Field);
             Assert.IsInstanceOfType(result.Field, typeof(object));
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -56,7 +55,7 @@ namespace Unity.Specification.Field.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Field);
             Assert.IsInstanceOfType(result.Field, typeof(object));
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -73,7 +72,7 @@ namespace Unity.Specification.Field.Injection
             // Verify
             Assert.IsNotNull(result);
             Assert.IsNull(result.Field);
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -90,7 +89,7 @@ namespace Unity.Specification.Field.Injection
             // Verify
             Assert.IsNotNull(result);
             Assert.IsNull(result.Field);
-            Assert.AreEqual(result.Name, Name);
+            Assert.AreEqual(Name, result.Name);
             Assert.IsNotNull(result.Container);
         }
 
@@ -104,7 +103,7 @@ namespace Unity.Specification.Field.Injection
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Dependency);
             Assert.IsNull(result.Dependency.Field);
-            Assert.AreEqual(result.Dependency.Name, Name);
+            Assert.AreEqual(Name, result.Dependency.Name);
             Assert.IsNotNull(result.Dependency.Container);
         }
     }

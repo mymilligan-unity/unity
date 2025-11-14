@@ -8,29 +8,26 @@ namespace Unity.Specification.Registration.Factory
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Ignore]
         public void Null_Null_Null()
         {
             // Act
-            //Container.RegisterFactory(null, null, null, null);
+            //Assert.Throws<ArgumentNullException>(() => Container.RegisterFactory(null, null, null, null));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Null_Null_Factory()
         {
             // Act
-            Container.RegisterFactory(null, null, (c,t,n)=> null, null);
+            Assert.Throws<ArgumentNullException>(() => Container.RegisterFactory(null, null, (c, t, n) => null, null));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Ignore]
         public void Type_Null_Null()
         {
             // Act
-            //Container.RegisterFactory(typeof(object), null, null, null);
+            //Assert.Throws<ArgumentNullException>(() => Container.RegisterFactory(typeof(object), null, null, null));
         }
 
         [TestMethod]

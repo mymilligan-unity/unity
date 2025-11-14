@@ -5,14 +5,13 @@ namespace Unity.Specification.Diagnostic.Cyclic
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void PropertyToInterface()
         {
             // Arrange
             Container.RegisterType<I1, E1>();
 
             // Act
-            Container.Resolve<E1>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<E1>());
         }
     }
 }

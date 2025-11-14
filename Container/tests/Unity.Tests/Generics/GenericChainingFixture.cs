@@ -17,7 +17,7 @@ namespace Unity.Tests.v5.Generics
             IUnityContainer container = new UnityContainer();
             container.RegisterType(typeof(ICommand<>), typeof(ConcreteCommand<>));
             ICommand<User> cmd = container.Resolve<ICommand<User>>();
-            AssertExtensions.IsInstanceOfType(cmd, typeof(ConcreteCommand<User>));
+            Assert.IsInstanceOfType(cmd, typeof(ConcreteCommand<User>));
         }
 
         [TestMethod]
@@ -61,11 +61,11 @@ namespace Unity.Tests.v5.Generics
                 .RegisterType(typeof(ICommand<>), typeof(ConcreteCommand<>), "inner");
 
             ICommand<User> result = container.Resolve<ICommand<User>>();
-            AssertExtensions.IsInstanceOfType(result, typeof(LoggingCommand<User>));
+            Assert.IsInstanceOfType(result, typeof(LoggingCommand<User>));
 
             ICommand<Account> accountResult = container.Resolve<ICommand<Account>>();
 
-            AssertExtensions.IsInstanceOfType(accountResult, typeof(LoggingCommand<Account>));
+            Assert.IsInstanceOfType(accountResult, typeof(LoggingCommand<Account>));
         }
 
         [TestMethod]

@@ -6,15 +6,13 @@ namespace Unity.Specification.Constructor.Injection
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void NoConstructor()
         {
             // Act
-            Container.RegisterType<TypeWithAmbiguousCtors>(
-                Invoke.Constructor(Resolve.Parameter()));
+            Container.RegisterType<TypeWithAmbiguousCtors>(Invoke.Constructor(Resolve.Parameter()));
 
             // Act
-            var instance = Container.Resolve<TypeWithAmbiguousCtors>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithAmbiguousCtors>());
         }
 
         [TestMethod]

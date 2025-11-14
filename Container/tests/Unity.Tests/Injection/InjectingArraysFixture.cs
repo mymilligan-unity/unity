@@ -66,8 +66,8 @@ namespace Unity.Tests.v5.Injection
             TypeWithArrayConstructorParameter result = container.Resolve<TypeWithArrayConstructorParameter>();
 
             Assert.AreEqual(3, result.Loggers.Length);
-            AssertExtensions.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
-            AssertExtensions.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
+            Assert.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
+            Assert.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
             Assert.AreSame(logger2, result.Loggers[2]);
         }
 
@@ -90,8 +90,8 @@ namespace Unity.Tests.v5.Injection
             TypeWithArrayConstructorParameter result = container.Resolve<TypeWithArrayConstructorParameter>();
 
             Assert.AreEqual(3, result.Loggers.Length);
-            AssertExtensions.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
-            AssertExtensions.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
+            Assert.IsInstanceOfType(result.Loggers[0], typeof(SpecialLogger));
+            Assert.IsInstanceOfType(result.Loggers[1], typeof(MockLogger));
             Assert.AreSame(logger2, result.Loggers[2]);
         }
 
@@ -100,7 +100,7 @@ namespace Unity.Tests.v5.Injection
         {
             ILogger logger2 = new SpecialLogger();
 
-            AssertExtensions.AssertException<InvalidOperationException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
                 {
                     new ResolvedArrayParameter<ILogger>(
                         new ResolvedParameter<ILogger>("log1"),

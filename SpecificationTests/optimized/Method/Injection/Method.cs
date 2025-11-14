@@ -19,21 +19,19 @@ namespace Unity.Specification.Method.Injection
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void MethodWithOutParameter()
         {
             // Act
             Container.RegisterType<OutParams>(Invoke.Method(nameof(OutParams.InjectMe), 12));
-            _ = Container.Resolve<OutParams>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<OutParams>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void MethodWithRefParameter()
         {
             // Act
             Container.RegisterType<RefParams>(Invoke.Method(nameof(RefParams.InjectMe), 15));
-            _ = Container.Resolve<RefParams>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<RefParams>());
         }
 
         [TestMethod]
@@ -139,15 +137,14 @@ namespace Unity.Specification.Method.Injection
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void InjectingStaticMethod()
         {
             // Verify
             Container.RegisterType<GuineaPig>(
-                Invoke.Method(nameof(GuineaPig.ShouldntBeCalled)));
+     Invoke.Method(nameof(GuineaPig.ShouldntBeCalled)));
 
             // Act
-            Container.Resolve<GuineaPig>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<GuineaPig>());
         }
     }
 }

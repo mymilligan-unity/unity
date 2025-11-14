@@ -15,7 +15,7 @@ namespace Resolution.Overrides
         public static object FactoryOverride { get; } = new TestResolverFactory();
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolvers), DynamicDataSourceType.Method)]
         public virtual void ResolveTest(ResolverOverride instance)
         {
@@ -31,7 +31,7 @@ namespace Resolution.Overrides
             Assert.AreSame(OverrideValue, value);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetOverriddenResolvers), DynamicDataSourceType.Method)]
         public virtual void ResolveWithOverrideTest(ResolverOverride instance)
         {
@@ -45,7 +45,7 @@ namespace Resolution.Overrides
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolvers), DynamicDataSourceType.Method)]
         public void GetHashCodeTest(ResolverOverride instance)
         {
@@ -65,7 +65,7 @@ namespace Resolution.Overrides
             Assert.AreNotEqual(twice, once);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolvers), DynamicDataSourceType.Method)]
         public void EqualsTest(ResolverOverride resolver)
         {
@@ -76,7 +76,7 @@ namespace Resolution.Overrides
             Assert.IsTrue(result);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolvers), DynamicDataSourceType.Method)]
         public void EqualsWrongTest(ResolverOverride resolver)
         {
@@ -84,7 +84,7 @@ namespace Resolution.Overrides
             Assert.IsFalse(resolver.Equals(this));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolvers), DynamicDataSourceType.Method)]
         public void EqualsOperatorTest(ResolverOverride resolver)
         {

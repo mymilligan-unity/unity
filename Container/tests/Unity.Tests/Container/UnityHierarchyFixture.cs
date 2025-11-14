@@ -21,7 +21,7 @@ namespace Unity.Tests.v5.Container
             var logger = child.Resolve<ILogger>();
 
             Assert.IsNotNull(logger);
-            AssertExtensions.IsInstanceOfType(logger, typeof(MockLogger));
+            Assert.IsInstanceOfType(logger, typeof(MockLogger));
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Unity.Tests.v5.Container
 
             ILogger l = child.Resolve<ILogger>("special");
 
-            AssertExtensions.IsInstanceOfType(l, typeof(SpecialLogger));
+            Assert.IsInstanceOfType(l, typeof(SpecialLogger));
         }
 
         [TestMethod]
@@ -63,8 +63,8 @@ namespace Unity.Tests.v5.Container
             ILogger parentLogger = parent.Resolve<ILogger>();
             ILogger childLogger = child.Resolve<ILogger>();
 
-            AssertExtensions.IsInstanceOfType(parentLogger, typeof(MockLogger));
-            AssertExtensions.IsInstanceOfType(childLogger, typeof(SpecialLogger));
+            Assert.IsInstanceOfType(parentLogger, typeof(MockLogger));
+            Assert.IsInstanceOfType(childLogger, typeof(SpecialLogger));
         }
 
         [TestMethod]
@@ -78,8 +78,8 @@ namespace Unity.Tests.v5.Container
             parent.RegisterType<ILogger, SpecialLogger>();
             ILogger second = child.Resolve<ILogger>();
 
-            AssertExtensions.IsInstanceOfType(first, typeof(MockLogger));
-            AssertExtensions.IsInstanceOfType(second, typeof(SpecialLogger));
+            Assert.IsInstanceOfType(first, typeof(MockLogger));
+            Assert.IsInstanceOfType(second, typeof(SpecialLogger));
         }
 
         [TestMethod]

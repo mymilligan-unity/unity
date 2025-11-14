@@ -5,7 +5,6 @@ namespace Unity.Specification.Diagnostic.Cyclic
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         // https://github.com/unitycontainer/container/issues/122
         public void GitHub_Container_122()
         {
@@ -13,7 +12,7 @@ namespace Unity.Specification.Diagnostic.Cyclic
             Container.RegisterType<I2, C2>();
 
             //next line returns StackOverflowException
-            Container.Resolve<I2>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<I2>());
         }
     }
 }

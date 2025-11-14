@@ -42,10 +42,7 @@ namespace Microsoft.Practices.Unity.Configuration.Tests
             var result = reader.MoveToContent();
             var element = new ParameterElement();
 
-            AssertExtensions.AssertException<ConfigurationErrorsException>(() =>
-                {
-                    element.Deserialize(reader);
-                });
+            Assert.Throws<ConfigurationErrorsException>(() => { element.Deserialize(reader); });
         }
 
         [TestMethod]
@@ -59,10 +56,7 @@ namespace Microsoft.Practices.Unity.Configuration.Tests
             var reader = new XmlTextReader(new StringReader(elementXml));
             var result = reader.MoveToContent();
             var element = new ParameterElement();
-            AssertExtensions.AssertException<ConfigurationErrorsException>(() =>
-            {
-                element.Deserialize(reader);
-            });
+            Assert.Throws<ConfigurationErrorsException>(() => { element.Deserialize(reader); });
         }
     }
 
@@ -99,10 +93,7 @@ namespace Microsoft.Practices.Unity.Configuration.Tests
             var reader = new XmlTextReader(new StringReader(elementXml));
             var result = reader.MoveToContent();
             var element = new PropertyElement();
-            AssertExtensions.AssertException<ConfigurationErrorsException>(() =>
-                {
-                    element.Deserialize(reader);
-                });
+            Assert.Throws<ConfigurationErrorsException>(() => { element.Deserialize(reader); });
         }
 
         [TestMethod]
@@ -116,10 +107,7 @@ namespace Microsoft.Practices.Unity.Configuration.Tests
             var reader = new XmlTextReader(new StringReader(elementXml));
             var result = reader.MoveToContent();
             var element = new PropertyElement();
-            AssertExtensions.AssertException<ConfigurationErrorsException>(() =>
-                {
-                    element.Deserialize(reader);
-                });
+            Assert.Throws<ConfigurationErrorsException>(() => { element.Deserialize(reader); });
         }
     }
 }

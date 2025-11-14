@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Unity.Specification.Diagnostic.Constructor.Types
 {
@@ -9,10 +9,9 @@ namespace Unity.Specification.Diagnostic.Constructor.Types
 
         // https://unity.codeplex.com/workitem/11899
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void ResolveDelegateThrowsExplicitException()
         {
-            var func = Container.Resolve<Func<string, object>>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<Func<string, object>>());
         }
 
         [TestMethod]
@@ -30,10 +29,9 @@ namespace Unity.Specification.Diagnostic.Constructor.Types
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WhenResolvingAnOpenGenericType()
         {
-            Container.Resolve(typeof(List<>));
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve(typeof(List<>)));
         }
 
         [TestMethod]

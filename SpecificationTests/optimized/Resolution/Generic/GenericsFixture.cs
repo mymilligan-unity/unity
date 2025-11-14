@@ -29,10 +29,9 @@ namespace Unity.Specification.Resolution.Generic
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WhenResolvingAnOpenGenericType()
         {
-            Container.Resolve(typeof(List<>));
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve(typeof(List<>)));
         }
 
         /// <summary>
@@ -223,7 +222,6 @@ namespace Unity.Specification.Resolution.Generic
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void UserExceptionIsNotWrappadInResolutionFailed()
         {
             // Arrange
@@ -231,9 +229,7 @@ namespace Unity.Specification.Resolution.Generic
             Container.RegisterFactory<IService>("2", c => { throw new InvalidOperationException(); });
 
             // Act
-            var array = Container.Resolve<IEnumerable<IService>>().ToArray();
-
-            Assert.Fail("Should throw at the line above");
+            Assert.Throws<InvalidOperationException>(() => Container.Resolve<IEnumerable<IService>>().ToArray());
         }
 
         [TestMethod]
@@ -247,7 +243,7 @@ namespace Unity.Specification.Resolution.Generic
             List<IService<int>> result = Container.Resolve<IEnumerable<IService<int>>>().ToList();
 
             // Validate
-            Assert.AreEqual(2, result.Count);
+            Assert.HasCount(2, result);
             Assert.IsTrue(result.Any(svc => svc is ServiceA<int>));
             Assert.IsTrue(result.Any(svc => svc is ServiceB<int>));
         }
@@ -265,12 +261,12 @@ namespace Unity.Specification.Resolution.Generic
             List<IService<string>> constrainedResult = Container.Resolve<IEnumerable<IService<string>>>().ToList();
 
             // Validate
-            Assert.AreEqual(3, result.Count);
+            Assert.HasCount(3, result);
             Assert.IsTrue(result.Any(svc => svc is ServiceA<int>));
             Assert.IsTrue(result.Any(svc => svc is ServiceB<int>));
             Assert.IsTrue(result.Any(svc => svc is ServiceStruct<int>));
 
-            Assert.AreEqual(2, constrainedResult.Count);
+            Assert.HasCount(2, constrainedResult);
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceA<string>));
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceB<string>));
         }
@@ -288,12 +284,12 @@ namespace Unity.Specification.Resolution.Generic
             List<IService<int>> constrainedResult = Container.Resolve<IEnumerable<IService<int>>>().ToList();
 
             // Validate
-            Assert.AreEqual(3, result.Count);
+            Assert.HasCount(3, result);
             Assert.IsTrue(result.Any(svc => svc is ServiceA<string>));
             Assert.IsTrue(result.Any(svc => svc is ServiceB<string>));
             Assert.IsTrue(result.Any(svc => svc is ServiceClass<string>));
 
-            Assert.AreEqual(2, constrainedResult.Count);
+            Assert.HasCount(2, constrainedResult);
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceA<int>));
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceB<int>));
         }
@@ -311,12 +307,12 @@ namespace Unity.Specification.Resolution.Generic
             List<IService<TypeWithNoPublicNoArgCtors>> constrainedResult = Container.Resolve<IEnumerable<IService<TypeWithNoPublicNoArgCtors>>>().ToList();
 
             // Validate
-            Assert.AreEqual(3, result.Count);
+            Assert.HasCount(3, result);
             Assert.IsTrue(result.Any(svc => svc is ServiceA<int>));
             Assert.IsTrue(result.Any(svc => svc is ServiceB<int>));
             Assert.IsTrue(result.Any(svc => svc is ServiceNewConstraint<int>));
 
-            Assert.AreEqual(2, constrainedResult.Count);
+            Assert.HasCount(2, constrainedResult);
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceA<TypeWithNoPublicNoArgCtors>));
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceB<TypeWithNoPublicNoArgCtors>));
         }
@@ -334,12 +330,12 @@ namespace Unity.Specification.Resolution.Generic
             List<IService<int>> constrainedResult = Container.Resolve<IEnumerable<IService<int>>>().ToList();
 
             // Validate
-            Assert.AreEqual(3, result.Count);
+            Assert.HasCount(3, result);
             Assert.IsTrue(result.Any(svc => svc is ServiceA<string>));
             Assert.IsTrue(result.Any(svc => svc is ServiceB<string>));
             Assert.IsTrue(result.Any(svc => svc is ServiceInterfaceConstraint<string>));
 
-            Assert.AreEqual(2, constrainedResult.Count);
+            Assert.HasCount(2, constrainedResult);
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceA<int>));
             Assert.IsTrue(constrainedResult.Any(svc => svc is ServiceB<int>));
         }

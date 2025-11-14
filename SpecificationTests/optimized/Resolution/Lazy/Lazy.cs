@@ -65,7 +65,6 @@ namespace Unity.Specification.Resolution.Lazy
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WithNotMatchingName()
         {
             // Act
@@ -73,7 +72,7 @@ namespace Unity.Specification.Resolution.Lazy
 
             // Verify
             Assert.IsNotNull(lazy);
-            Assert.IsInstanceOfType(lazy.Value, typeof(Service));
+            Assert.Throws<ResolutionFailedException>(() => lazy.Value);
         }
 
         [TestMethod]
@@ -212,6 +211,5 @@ namespace Unity.Specification.Resolution.Lazy
             Assert.IsNotNull(array);
             Assert.AreEqual(3, array.Length);
         }
-
     }
 }

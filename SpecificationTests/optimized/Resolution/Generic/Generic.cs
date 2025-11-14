@@ -62,7 +62,6 @@ namespace Unity.Specification.Resolution.Generic
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void Named_null_Name_null()
         {
             // Arrange
@@ -70,15 +69,10 @@ namespace Unity.Specification.Resolution.Generic
             Container.RegisterType<IOtherService, OtherService>(Name);
 
             // Act 
-            var instance = Container.Resolve<IFoo<IOtherService>>();
-
-            // Validate
-            Assert.IsNotNull(instance);
-            Assert.IsInstanceOfType(instance, typeof(IFoo<IOtherService>));
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo<IOtherService>>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void Named_null_Name_name()
         {
             // Arrange
@@ -86,11 +80,7 @@ namespace Unity.Specification.Resolution.Generic
             Container.RegisterType<IOtherService, OtherService>(Name);
 
             // Act 
-            var instance = Container.Resolve<IFoo<IService>>(Name);
-
-            // Validate
-            Assert.IsNotNull(instance);
-            Assert.IsInstanceOfType(instance, typeof(IFoo<IService>));
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<IFoo<IService>>(Name));
         }
 
         [TestMethod]

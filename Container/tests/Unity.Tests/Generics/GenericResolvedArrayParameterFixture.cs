@@ -103,16 +103,21 @@ namespace Unity.Tests.v5.Generics
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void AppropriateExceptionIsThrownWhenNoMatchingConstructorCanBeFound()
         {
-            new UnityContainer()
-                .RegisterType(typeof(ClassWithOneGenericParameter<>),
-                    new InjectionConstructor(new GenericResolvedArrayParameter("T")));
+            Assert.Throws<InvalidOperationException>(() =>
+                new UnityContainer()
+                    .RegisterType(typeof(ClassWithOneGenericParameter<>),
+                        new InjectionConstructor(new GenericResolvedArrayParameter("T"))));
         }
 
-        private void GetT<T>() { }
-        private void GetU<U>() { }
+        private void GetT<T>()
+        {
+        }
+
+        private void GetU<U>()
+        {
+        }
 
         public class ClassWithOneArrayGenericParameter<T>
         {

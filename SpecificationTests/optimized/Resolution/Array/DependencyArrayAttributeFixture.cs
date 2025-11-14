@@ -16,7 +16,7 @@ namespace Unity.Specification.Resolution.Array
             var resolved = Container.Resolve<TypeWithArrayConstructorParameter>();
 
             Assert.IsNotNull(resolved.Loggers);
-            Assert.AreEqual(2, resolved.Loggers.Length);
+            Assert.HasCount(2, resolved.Loggers);
             Assert.AreSame(o1, resolved.Loggers[0]);
             Assert.AreSame(o2, resolved.Loggers[1]);
         }
@@ -33,7 +33,7 @@ namespace Unity.Specification.Resolution.Array
             var resolved = Container.Resolve<TypeWithArrayProperty>();
 
             Assert.IsNotNull(resolved.Loggers);
-            Assert.AreEqual(2, resolved.Loggers.Length);
+            Assert.HasCount(2, resolved.Loggers);
             Assert.AreSame(o1, resolved.Loggers[0]);
             Assert.AreSame(o2, resolved.Loggers[1]);
         }
@@ -50,16 +50,15 @@ namespace Unity.Specification.Resolution.Array
             var resolved = Container.Resolve<GenericTypeWithArrayConstructorParameter<ILogger>>();
 
             Assert.IsNotNull(resolved.Values);
-            Assert.AreEqual(2, resolved.Values.Length);
+            Assert.HasCount(2, resolved.Values);
             Assert.AreSame(o1, resolved.Values[0]);
             Assert.AreSame(o2, resolved.Values[1]);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void BindingDependencyArrayToArrayParameterWithRankOverOneThrows()
         {
-            Container.Resolve<TypeWithArrayConstructorParameterOfRankTwo>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithArrayConstructorParameterOfRankTwo>());
         }
     }
 }

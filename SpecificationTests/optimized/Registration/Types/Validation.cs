@@ -42,7 +42,7 @@ namespace Unity.Specification.Registration.Types
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ArgumetTestData))]
         public void ArgumentValidation(Type typeFrom, Type typeTo, string name, ITypeLifetimeManager lifetimeManager, Type manager)
         {
@@ -57,7 +57,7 @@ namespace Unity.Specification.Registration.Types
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(ArgumetTestDataFailing))]
         public void ArgumentValidationFailing(Type exception, Type typeFrom, Type typeTo, string name, ITypeLifetimeManager lifetimeManager, params InjectionMember[] injectionMembers)
         {

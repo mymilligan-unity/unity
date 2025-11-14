@@ -8,7 +8,7 @@ namespace Injection.Extensions
     [TestClass]
     public class RegistrationTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetInjectArrayVariants), DynamicDataSourceType.Method)]
         public void InjectArrayTests(object instance)
         {
@@ -24,7 +24,7 @@ namespace Injection.Extensions
         }
 
         // TODO: Issue 146
-        //[DataTestMethod]
+        //[TestMethod]
         //[ExpectedException(typeof(ArgumentNullException))]
         //[DynamicData(nameof(GetInjectArrayInvalidVariants), DynamicDataSourceType.Method)]
         //public void InjectArrayValidationTests()
@@ -38,7 +38,7 @@ namespace Injection.Extensions
         //    yield return new object[] { Inject.Array(typeof(string), string.Empty) };
         //}
 
-        //[DataTestMethod]
+        //[TestMethod]
         //[DynamicData(nameof(GetInjectParameterVariants), DynamicDataSourceType.Method)]
         //public void InjectParameterTests(object instance)
         //{

@@ -77,7 +77,7 @@ namespace Unity.AspNet.WebApi.Tests
                 {
                     using (var scope = resolver.BeginScope())
                     {
-                        AssertThrows<ResolutionFailedException>(() => scope.GetService(typeof(TestController)));
+                        Assert.Throws<ResolutionFailedException>(() => scope.GetService(typeof(TestController)));
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Unity.AspNet.WebApi.Tests
                 {
                     using (var scope = resolver.BeginScope())
                     {
-                        AssertThrows<ResolutionFailedException>(() => scope.GetService(typeof(IFoo)));
+                        Assert.Throws<ResolutionFailedException>(() => scope.GetService(typeof(IFoo)));
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace Unity.AspNet.WebApi.Tests
                 resolver.Dispose();
 
                 // ObjectDisposedException?
-                AssertThrows<ResolutionFailedException>(() => container.Resolve(typeof(IFoo)));
+                Assert.Throws<ResolutionFailedException>(() => container.Resolve(typeof(IFoo)));
             }
         }
 
@@ -210,26 +210,6 @@ namespace Unity.AspNet.WebApi.Tests
             {
                 throw new NotImplementedException();
             }
-        }
-
-        private static void AssertThrows<TException>(Action action)
-            where TException : Exception
-        {
-            try
-            {
-                action();
-            }
-            catch (TException)
-            {
-                return;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected exception {0}, but instead exception {1} was thrown",
-                    typeof(TException).Name,
-                    ex.GetType().Name);
-            }
-            Assert.Fail("Expected exception {0}, no exception thrown", typeof(TException).Name);
         }
     }
 }

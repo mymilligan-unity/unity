@@ -20,28 +20,25 @@ namespace Injection.Parameters
 
         private static ParameterInfo NoDefaultInfo =
             typeof(ValidationTests).GetMethod(nameof(TestMethod))
-                                   .GetParameters()
-                                   .First();
+                .GetParameters()
+                .First();
 
         private static ParameterInfo DefaultInfo =
             typeof(ValidationTests).GetMethod(nameof(TestMethod))
-                                   .GetParameters()
-                                   .Last();
+                .GetParameters()
+                .Last();
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void InjectionParameterCtorTest()
         {
-            new InjectionParameter(null);
+            Assert.Throws<ArgumentNullException>(() => new InjectionParameter(null));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void GenericParameterCtorTest()
         {
-            new GenericParameter(null);
+            Assert.Throws<ArgumentNullException>(() => new GenericParameter(null));
         }
-
 
         // Issue https://github.com/unitycontainer/abstractions/issues/146
         [Ignore]
@@ -53,14 +50,13 @@ namespace Injection.Parameters
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ResolvedArrayParameterElementTest()
         {
-            new ResolvedArrayParameter(typeof(string), null);
+            Assert.Throws<ArgumentNullException>(() => new ResolvedArrayParameter(typeof(string), null));
         }
 
-        [DataTestMethod]
-        [DynamicData(nameof(GetSupportedParameters), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(GetSupportedParameters))]
         public void ToStringTest(ParameterValue parameter)
         {
             var name = parameter.GetType().Name;
@@ -69,17 +65,15 @@ namespace Injection.Parameters
         }
 
         [Ignore] // TODO: validate
-        [DataTestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        [DynamicData(nameof(GetSupportedParameters), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(GetSupportedParameters))]
         public void EqualsValidationTest(ParameterValue parameter)
         {
-            Assert.IsTrue(parameter.Equals(null));
+            Assert.Throws<ArgumentNullException>(() => Assert.IsTrue(parameter.Equals(null)));
         }
 
-
-        [DataTestMethod]
-        [DynamicData(nameof(GetOptionalParametersData), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(GetOptionalParametersData))]
         public void OptionalExceptionTest(IResolverFactory<Type> factory)
         {
             var context = new DictionaryContext() as IResolveContext;
@@ -91,9 +85,8 @@ namespace Injection.Parameters
             Assert.IsNull(resolver(ref context));
         }
 
-        [DataTestMethod]
-        [ExpectedException(typeof(CircularDependencyException))]
-        [DynamicData(nameof(GetOptionalParametersData), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(GetOptionalParametersData))]
         public void OptionalCircularExceptionTest(IResolverFactory<Type> factory)
         {
             var context = new CircularExceptionContect() as IResolveContext;
@@ -102,13 +95,11 @@ namespace Injection.Parameters
             // Validate
             Assert.IsNotNull(resolver);
 
-            _ = resolver(ref context);
+            Assert.Throws<CircularDependencyException>(() => resolver(ref context));
         }
 
-
-        [DataTestMethod]
-        [ExpectedException(typeof(CircularDependencyException))]
-        [DynamicData(nameof(GetOptionalParametersData), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(GetOptionalParametersData))]
         public void OptionalCircularExceptionInfoTest(IResolverFactory<ParameterInfo> factory)
         {
             var context = new CircularExceptionContect() as IResolveContext;
@@ -117,12 +108,11 @@ namespace Injection.Parameters
             // Validate
             Assert.IsNotNull(resolver);
 
-            _ = resolver(ref context);
+            Assert.Throws<CircularDependencyException>(() => resolver(ref context));
         }
 
-
-        [DataTestMethod]
-        [DynamicData(nameof(Getissues147Data), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(Getissues147Data))]
         // TODO: issues 147: [DynamicData(nameof(GetOptionalParametersData), DynamicDataSourceType.Method)]
         public void OptionalDefaultTest(IResolverFactory<ParameterInfo> factory)
         {
@@ -136,8 +126,8 @@ namespace Injection.Parameters
             Assert.AreEqual(DefaultValue, value);
         }
 
-        [DataTestMethod]
-        [DynamicData(nameof(Getissues147Data), DynamicDataSourceType.Method)]
+        [TestMethod]
+        [DynamicData(nameof(Getissues147Data))]
         // TODO: issues 147: [DynamicData(nameof(GetOptionalParametersData), DynamicDataSourceType.Method)]
         public void OptionalNoDefaultTest(IResolverFactory<ParameterInfo> factory)
         {
@@ -158,7 +148,6 @@ namespace Injection.Parameters
             yield return new object[] { new OptionalParameter(string.Empty) };
             yield return new object[] { new OptionalParameter(typeof(string), string.Empty) };
         }
-
 
         public static IEnumerable<object[]> GetSupportedParameters()
         {
@@ -183,7 +172,6 @@ namespace Injection.Parameters
             yield return new object[] { new OptionalParameter(string.Empty) };
             yield return new object[] { new OptionalParameter(typeof(string), string.Empty) };
         }
-
 
         public class CircularExceptionContect : IResolveContext
         {

@@ -204,7 +204,7 @@ namespace Microsoft.Practices.Unity.Tests
             var container = new UnityContainer();
             container.RegisterType<object, string>();
 
-            AssertExtensions.AssertException<DuplicateTypeMappingException>(
+            Assert.Throws<DuplicateTypeMappingException>(
                 () => container.RegisterTypes(new[] {typeof(int)}, t => new[] {typeof(object)}));
         }
 
@@ -213,7 +213,7 @@ namespace Microsoft.Practices.Unity.Tests
         {
             var container = new UnityContainer();
 
-            AssertExtensions.AssertException<DuplicateTypeMappingException>(
+            Assert.Throws<DuplicateTypeMappingException>(
                 () => container.RegisterTypes(new[] {typeof(string), typeof(int)}, t => new[] {typeof(object)}));
         }
 

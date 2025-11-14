@@ -20,17 +20,15 @@ namespace Lifetime.Managers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public override void SetValueTwiceTest()
         {
-            base.SetValueTwiceTest();
+            Assert.Throws<InvalidOperationException>(() => base.SetValueTwiceTest());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public override void SetDifferentValuesTwiceTest()
         {
-            base.SetDifferentValuesTwiceTest();
+            Assert.Throws<InvalidOperationException>(() => base.SetDifferentValuesTwiceTest());
         }
     }
 }

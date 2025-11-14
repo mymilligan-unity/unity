@@ -39,10 +39,7 @@ namespace Microsoft.Practices.Unity.Configuration.Tests
         [TestMethod]
         public void Then_ConstructorsThatDoNotMatchThrowAnException()
         {
-            AssertExtensions.AssertException<InvalidOperationException>(() =>
-                {
-                    section.Configure(container, "invalidConstructor");
-                });
+            Assert.Throws<InvalidOperationException>(() => { section.Configure(container, "invalidConstructor"); });
         }
 
         // Disable obsolete warning for this one test

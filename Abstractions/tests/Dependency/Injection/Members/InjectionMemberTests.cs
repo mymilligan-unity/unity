@@ -23,7 +23,7 @@ namespace Injection.Members
                                                                               .First();
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetNotInitializedMembers), DynamicDataSourceType.Method)]
         public virtual void NoAddedPoliciesTest(InjectionMember member, MemberInfo _)
         {
@@ -35,11 +35,10 @@ namespace Injection.Members
             member.AddPolicies<IResolveContext, IPolicySet>(typeof(IPolicySet), typeof(PolicySet), null, ref cast);
 
             // Validate
-            Assert.AreEqual(0, set.Count);
+            Assert.IsEmpty(set);
         }
 
-        [DataTestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void AddWrongTypeTest(InjectionMember member, MemberInfo _)
         {
@@ -48,10 +47,10 @@ namespace Injection.Members
             var cast = set as IPolicySet;
 
             // Act
-            member.AddPolicies<IResolveContext, IPolicySet>(typeof(WrongType), typeof(WrongType), null, ref cast);
+            Assert.Throws<ArgumentException>(() => member.AddPolicies<IResolveContext, IPolicySet>(typeof(WrongType), typeof(WrongType), null, ref cast));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void BuildRequiredTest(InjectionMember member, MemberInfo _)
         {
@@ -60,7 +59,7 @@ namespace Injection.Members
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetNotInitializedMembers), DynamicDataSourceType.Method)]
         public virtual void HashCodeCold(InjectionMember member, MemberInfo _)
         {
@@ -71,7 +70,7 @@ namespace Injection.Members
             Assert.AreEqual(0, hash);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void HashCodeTest(InjectionMember member, MemberInfo _)
         {
@@ -88,7 +87,7 @@ namespace Injection.Members
             Assert.AreNotEqual(0, hash);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetNotInitializedMembers), DynamicDataSourceType.Method)]
         public virtual void ToStringTest(InjectionMember member, MemberInfo _)
         {
@@ -119,7 +118,7 @@ namespace Injection.Members
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetNotInitializedMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsCold(InjectionMember member, MemberInfo info)
         {
@@ -127,7 +126,7 @@ namespace Injection.Members
             Assert.IsFalse(member.Equals(info));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsTest(InjectionMember member, MemberInfo info)
         {
@@ -142,7 +141,7 @@ namespace Injection.Members
             Assert.IsTrue(member.Equals(info));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetNotInitializedMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsObjectCold(InjectionMember member, MemberInfo info)
         {
@@ -150,7 +149,7 @@ namespace Injection.Members
             Assert.IsFalse(member.Equals(info));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsObjectWrong(InjectionMember member, MemberInfo info)
         {
@@ -165,7 +164,7 @@ namespace Injection.Members
             Assert.IsFalse(member.Equals(this));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsObjectSame(InjectionMember member, MemberInfo info)
         {
@@ -180,7 +179,7 @@ namespace Injection.Members
             Assert.IsTrue(member.Equals(member));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllInjectionMembers), DynamicDataSourceType.Method)]
         public virtual void EqualsObjectTest(InjectionMember member, MemberInfo info)
         {

@@ -27,25 +27,17 @@ namespace Unity.Specification.Method.Attribute
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WithRefParameters()
         {
             // Act
-            var result = Container.Resolve<TypeWithRefParameter>();
-
-            // Verify
-            Assert.Fail();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithRefParameter>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void WithOutParameters()
         {
             // Act
-            var result = Container.Resolve<TypeWithOutParameter>();
-
-            // Verify
-            Assert.Fail();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<TypeWithOutParameter>());
         }
     }
 }

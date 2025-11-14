@@ -7,12 +7,11 @@ namespace Unity.Specification.Diagnostic.Method.Validation
     {
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void AnonymousTypeForGenericFails()
         {
             // Act
-            Container.RegisterType(typeof(GenericService<,,>),
-                Invoke.Method("Method", Resolve.Parameter()));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType(typeof(GenericService<,,>),
+                Invoke.Method("Method", Resolve.Parameter())));
         }
     }
 }

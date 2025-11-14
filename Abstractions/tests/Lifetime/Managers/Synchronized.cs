@@ -64,7 +64,6 @@ namespace Lifetime.Managers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TimeoutException))]
         public virtual void GetSynchronizedValueTimeoutTest()
         {
             var semaphor = new ManualResetEvent(false);
@@ -83,7 +82,7 @@ namespace Lifetime.Managers
 
             semaphor.WaitOne();
             SynchronizedLifetimeManager.ResolveTimeout = 10;
-            var value = TestManager.GetValue(LifetimeContainer);
+            Assert.Throws<TimeoutException>(() => TestManager.GetValue(LifetimeContainer));
         }
 
         [TestMethod]

@@ -27,7 +27,7 @@ namespace Unity.Tests.v5.Container
             UnityContainer uc = new UnityContainer();
             object myNullObject = null;
 
-            AssertHelper.ThrowsException<ArgumentNullException>(() => uc.BuildUp(myNullObject, "myNullObject"), "Null object is not allowed");
+            Assert.Throws<ArgumentNullException>(() => uc.BuildUp(myNullObject, "myNullObject"), "Null object is not allowed");
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Unity.Tests.v5.Container
             UnityContainer uc = new UnityContainer();
             object myNullObject = null;
 
-            AssertHelper.ThrowsException<ArgumentNullException>(() => uc.BuildUp(null, myNullObject), "Null object is not allowed");
+            Assert.Throws<ArgumentNullException>(() => uc.BuildUp(null, myNullObject), "Null object is not allowed");
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace Unity.Tests.v5.Container
             IUnityContainer uc = new UnityContainer();
             object myNullObject = null;
 
-            AssertHelper.ThrowsException<ArgumentNullException>(() => uc.BuildUp(null, myNullObject, "myNullObject"), "Null object is not allowed");
+            Assert.Throws<ArgumentNullException>(() => uc.BuildUp(null, myNullObject, "myNullObject"), "Null object is not allowed");
         }
 
         [TestMethod]
@@ -105,14 +105,13 @@ namespace Unity.Tests.v5.Container
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public void BuildUpPrimitiveAndDotNetClassTest()
         {
             IUnityContainer uc = new UnityContainer();
             int i = 0;
             uc.BuildUp(i, "a");
 
-          var res = uc.Resolve(typeof(int), "a");
+            Assert.Throws<ResolutionFailedException>(() => uc.Resolve(typeof(int), "a"));
         }
 
         [TestMethod]

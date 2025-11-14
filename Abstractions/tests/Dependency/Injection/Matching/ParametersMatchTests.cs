@@ -8,7 +8,7 @@ namespace Injection.Matching
     [TestClass]
     public class ParametersMatchTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetMatchesData), DynamicDataSourceType.Method)]
         public void MatchesTest(object data, Type match, bool result)
         {
@@ -16,7 +16,7 @@ namespace Injection.Matching
             Assert.AreEqual(result, data.Matches(match));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetTypeMatchesData), DynamicDataSourceType.Method)]
         public void MatchesTypeTest(Type type, Type match, bool result)
         {
@@ -24,7 +24,7 @@ namespace Injection.Matching
             Assert.AreEqual(result, type.MatchesType(match));
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetObjectMatchesData), DynamicDataSourceType.Method)]
         public void MatchesObjectTest(object parameter, Type match, bool result)
         {

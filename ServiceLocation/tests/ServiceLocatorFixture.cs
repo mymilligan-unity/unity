@@ -26,7 +26,7 @@ namespace Unity.ServiceLocation.Tests
 
         public void AskingForInvalidComponentShouldRaiseActivationException()
         {
-            AssertThrows<ActivationException>(() => locator.GetInstance<IDictionary>());
+            Assert.Throws<ActivationException>(() => locator.GetInstance<IDictionary>());
         }
 
         public void GetNamedInstance()
@@ -85,8 +85,8 @@ namespace Unity.ServiceLocation.Tests
         {
             List<ILogger> genericLoggers = new List<ILogger>(locator.GetAllInstances<ILogger>());
             List<object> plainLoggers = new List<object>(locator.GetAllInstances(typeof(ILogger)));
-            Assert.AreEqual(genericLoggers.Count, plainLoggers.Count);
-            for (int i = 0; i < genericLoggers.Count; i++)
+            Assert.HasCount(genericLoggers.Count, plainLoggers);
+            for (var i = 0; i < genericLoggers.Count; i++)
             {
                 Assert.AreEqual(
                     genericLoggers[i].GetType(),
@@ -107,11 +107,10 @@ namespace Unity.ServiceLocation.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail("Expected exception {0}, but instead exception {1} was thrown",
-                    typeof(TException).Name,
-                    ex.GetType().Name);
+                Assert.Fail($"Expected exception {typeof(TException).Name}, but instead exception {ex.GetType().Name} was thrown");
             }
-            Assert.Fail("Expected exception {0}, no exception thrown", typeof(TException).Name);
+
+            Assert.Fail($"Expected exception {typeof(TException).Name}, no exception thrown");
         }
     }
 }

@@ -1,6 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Unity.Lifetime;
 
 namespace Unity.Specification.Container.Hierarchy
@@ -322,7 +322,7 @@ namespace Unity.Specification.Container.Hierarchy
             var child = parent.CreateChildContainer();
             child.RegisterType<ITemporary>("First", new ContainerControlledLifetimeManager());
             parent.Dispose();
-            Assert.ThrowsException<ResolutionFailedException>(() => child.Resolve<ITemporary>("First"));
+            Assert.Throws<ResolutionFailedException>(() => child.Resolve<ITemporary>("First"));
         }
 
         [TestMethod]

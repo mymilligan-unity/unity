@@ -14,19 +14,17 @@ namespace Unity.Specification.Factory.Registration
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ShortSignatureThrowsOnNull()
         {
             Func<IUnityContainer, object> factoryFunc = null;
-            Container.RegisterFactory<IService>(factoryFunc);
+            Assert.Throws<ArgumentNullException>(() => Container.RegisterFactory<IService>(factoryFunc));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void LongSignatureThrowsOnNull()
         {
             Func<IUnityContainer, Type, string, object> factoryFunc = null;
-            Container.RegisterFactory<IService>(factoryFunc);
+            Assert.Throws<ArgumentNullException>(() => Container.RegisterFactory<IService>(factoryFunc));
         }
     }
 }

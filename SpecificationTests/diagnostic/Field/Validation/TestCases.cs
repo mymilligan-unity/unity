@@ -7,22 +7,20 @@ namespace Unity.Specification.Diagnostic.Field.Validation
     {
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void InvalidValue()
         {
             // Act
-            Container.RegisterType<ObjectWithThreeFields>(
-                Inject.Field(nameof(ObjectWithThreeFields.Container), Name));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<ObjectWithThreeFields>(
+                Inject.Field(nameof(ObjectWithThreeFields.Container), Name)));
         }
 
         [Ignore]
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ReadOnlyProperty()
         {
             // Act
-            Container.RegisterType<ObjectWithFourFields>(
-                Inject.Field(nameof(ObjectWithFourFields.ReadOnlyField), "test"));
+            Assert.Throws<InvalidOperationException>(() => Container.RegisterType<ObjectWithFourFields>(
+                Inject.Field(nameof(ObjectWithFourFields.ReadOnlyField), "test")));
         }
     }
 }

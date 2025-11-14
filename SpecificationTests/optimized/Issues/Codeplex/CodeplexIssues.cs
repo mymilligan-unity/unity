@@ -67,7 +67,7 @@ namespace Unity.Specification.Issues.Codeplex
 
             IBasicInterface result = child.Resolve<IBasicInterface>();
 
-            AssertExtensions.IsInstanceOfType(result, typeof(MockBasic));
+            Assert.IsInstanceOfType<MockBasic>(result);
         }
 
         // http://www.codeplex.com/unity/Thread/View.aspx?ThreadId=30292

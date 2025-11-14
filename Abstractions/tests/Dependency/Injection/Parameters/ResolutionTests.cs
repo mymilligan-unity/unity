@@ -39,7 +39,7 @@ namespace Injection.Parameters
         };
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetIResolvers), DynamicDataSourceType.Method)]
         public void IResolveTest(IResolve resolver)
         {
@@ -52,7 +52,7 @@ namespace Injection.Parameters
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetResolveFactories), DynamicDataSourceType.Method)]
         public void TypeFactoryTest(IResolverFactory<Type> factory)
         {
@@ -68,7 +68,7 @@ namespace Injection.Parameters
             Assert.AreSame(ListConst, value);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolveFactories), DynamicDataSourceType.Method)]
         public void TypeArrayTest(IResolverFactory<Type> factory)
         {
@@ -85,7 +85,7 @@ namespace Injection.Parameters
         }
 
         [Ignore] // TODO: Issue #148 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolveFactories), DynamicDataSourceType.Method)]
         public void TypeObjectTest(IResolverFactory<Type> factory)
         {
@@ -103,7 +103,7 @@ namespace Injection.Parameters
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetResolveFactories), DynamicDataSourceType.Method)]
         public void InfoFactoryTest(IResolverFactory<ParameterInfo> factory)
         {
@@ -119,7 +119,7 @@ namespace Injection.Parameters
             Assert.AreSame(ListConst, value);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolveFactories), DynamicDataSourceType.Method)]
         public void InfoArrayTest(IResolverFactory<ParameterInfo> factory)
         {
@@ -136,7 +136,7 @@ namespace Injection.Parameters
         }
 
         [Ignore] // TODO: Issue #148 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(GetAllResolveFactories), DynamicDataSourceType.Method)]
         public void InfoObjectTest(IResolverFactory<ParameterInfo> factory)
         {

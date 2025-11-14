@@ -5,18 +5,16 @@ namespace Unity.Specification.Constructor.Injection
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void NoDefaultConstructor()
         {
             // Arrange
             Container.RegisterType<ClassWithTreeConstructors>(Invoke.Constructor());
 
             // Act
-            var instance = Container.Resolve<ClassWithTreeConstructors>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ClassWithTreeConstructors>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void NoBogusConstructor()
         {
             // Arrange
@@ -24,11 +22,10 @@ namespace Unity.Specification.Constructor.Injection
                 Invoke.Constructor(typeof(int), typeof(string)));
 
             // Act
-            var instance = Container.Resolve<ClassWithTreeConstructors>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ClassWithTreeConstructors>());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ResolutionFailedException))]
         public virtual void NoBogusValuesConstructor()
         {
             // Arrange
@@ -36,7 +33,7 @@ namespace Unity.Specification.Constructor.Injection
                 Invoke.Constructor( 1, "test"));
 
             // Act
-            var instance = Container.Resolve<ClassWithTreeConstructors>();
+            Assert.Throws<ResolutionFailedException>(() => Container.Resolve<ClassWithTreeConstructors>());
         }
 
         [TestMethod]

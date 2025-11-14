@@ -29,18 +29,16 @@ namespace Unity.Specification.Registration.Instance
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ThrowsOnNullNull()
         {
-            Container.RegisterInstance(null, null, null, InstanceLifetime.Singleton);
+            Assert.Throws<ArgumentNullException>(() => Container.RegisterInstance(null, null, null, InstanceLifetime.Singleton));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Null_Null_Null()
         {
             // Act
-            Container.RegisterInstance(null, null, null, null);
+            Assert.Throws<ArgumentNullException>(() => Container.RegisterInstance(null, null, null, null));
         }
 
         [TestMethod]

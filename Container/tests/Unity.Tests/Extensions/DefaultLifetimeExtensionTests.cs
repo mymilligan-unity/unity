@@ -33,9 +33,9 @@ namespace Unity.Tests.v5
 
             // Validate
             Assert.IsNotNull(config);
-            Assert.IsInstanceOfType(config.TypeDefaultLifetime,     typeof(TransientLifetimeManager));
+            Assert.IsInstanceOfType(config.TypeDefaultLifetime, typeof(TransientLifetimeManager));
             Assert.IsInstanceOfType(config.InstanceDefaultLifetime, typeof(ContainerControlledLifetimeManager));
-            Assert.IsInstanceOfType(config.FactoryDefaultLifetime,  typeof(TransientLifetimeManager));
+            Assert.IsInstanceOfType(config.FactoryDefaultLifetime, typeof(TransientLifetimeManager));
         }
 
         [TestMethod]
@@ -53,65 +53,50 @@ namespace Unity.Tests.v5
 
             // Validate
             Assert.IsNotNull(config);
-            Assert.IsInstanceOfType(config.TypeDefaultLifetime,     typeof(TestLifetimeManager));
+            Assert.IsInstanceOfType(config.TypeDefaultLifetime, typeof(TestLifetimeManager));
             Assert.IsInstanceOfType(config.InstanceDefaultLifetime, typeof(TestLifetimeManager));
-            Assert.IsInstanceOfType(config.FactoryDefaultLifetime,  typeof(TestLifetimeManager));
+            Assert.IsInstanceOfType(config.FactoryDefaultLifetime, typeof(TestLifetimeManager));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TypeNull()
         {
             // Setup
             var config = new UnityContainer().AddNewExtension<DefaultLifetime>()
                                              .Configure<DefaultLifetime>();
 
-            // Act
-            config.TypeDefaultLifetime = null;
-
-            // Validate
-            Assert.Fail("Should throw above");
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => config.TypeDefaultLifetime = null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void InstanceNull()
         {
             // Setup
             var config = new UnityContainer().AddNewExtension<DefaultLifetime>()
                                              .Configure<DefaultLifetime>();
 
-            // Act
-            config.InstanceDefaultLifetime = null;
-
-            // Validate
-            Assert.Fail("Should throw above");
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => config.InstanceDefaultLifetime = null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void FactoryNull()
         {
             // Setup
             var config = new UnityContainer().AddNewExtension<DefaultLifetime>()
                                              .Configure<DefaultLifetime>();
 
-            // Act
-            config.FactoryDefaultLifetime = null;
-
-            // Validate
-            Assert.Fail("Should throw above");
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => config.FactoryDefaultLifetime = null);
         }
     }
 
-
-
-    public class TestLifetimeManager : LifetimeManager, 
-                                       ITypeLifetimeManager, 
-                                       IInstanceLifetimeManager, 
-                                       IFactoryLifetimeManager
+    public class TestLifetimeManager : LifetimeManager,
+        ITypeLifetimeManager,
+        IInstanceLifetimeManager,
+        IFactoryLifetimeManager
     {
-        protected override LifetimeManager OnCreateLifetimeManager() => 
-            throw new NotImplementedException();
+        protected override LifetimeManager OnCreateLifetimeManager() => throw new NotImplementedException();
     }
 }
