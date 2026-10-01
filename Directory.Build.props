@@ -1,8 +1,8 @@
 <Project>
 
   <PropertyGroup>
-    <VersionBaseBase>5.11</VersionBaseBase>
-    <VersionBase>$(VersionBaseBase).7</VersionBase>
+    <VersionBaseBase>6.0</VersionBaseBase>
+    <VersionBase>$(VersionBaseBase).0</VersionBase>
     <Version>$(VersionBase)</Version>
     <FileVersion>$(Version).0</FileVersion>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
