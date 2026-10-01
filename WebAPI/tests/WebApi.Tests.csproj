@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <PropertyGroup>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Unity.AspNet.WebApi.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi" />
+    <ProjectReference Include="..\src\Unity.AspNet.WebApi.csproj" />
+  </ItemGroup>
+  
+
+
+
+
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Abstractions\src\Unity.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Container\src\Unity.Container.csproj" />
+  </ItemGroup>
+</Project>

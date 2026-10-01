@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFramework>net48</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    
+  </PropertyGroup>
+
+
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NLog\src\Unity.NLog.csproj" />
+  </ItemGroup>
+</Project>

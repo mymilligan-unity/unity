@@ -1,5 +1,52 @@
 <Project>
- <PropertyGroup>
-  <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
- </PropertyGroup>
+
+  <PropertyGroup>
+    <VersionBaseBase>5.11</VersionBaseBase>
+    <VersionBase>$(VersionBaseBase).7</VersionBase>
+    <Version>$(VersionBase)</Version>
+    <FileVersion>$(Version).0</FileVersion>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <LangVersion Condition="'$(UsingMicrosoftNETSdk)' == 'true'">latest</LangVersion>
+    <Copyright>Copyright © .NET Foundation and Contributors. All Rights Reserved</Copyright>
+    <Authors>Unity Open Source Project</Authors>
+    <Company>Unity Open Source Project</Company>
+    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/12849707</PackageIconUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+    <TargetFrameworks>netstandard2.0;net48;net10.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.EndsWith('\src')) Or $(MSBuildProjectDirectory.EndsWith('/src'))">
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">false</GeneratePackageOnBuild>
+    <DebugType Condition="'$(Configuration)' == 'Release'">Portable</DebugType>
+    <DebugType Condition="'$(Configuration)' == 'Debug'">Full</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectDirectory.EndsWith('\src')) Or $(MSBuildProjectDirectory.EndsWith('/src'))">
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests')) Or $(MSBuildProjectDirectory.Contains('/tests')) Or $(MSBuildProjectDirectory.Contains('\SpecificationTests')) Or $(MSBuildProjectDirectory.Contains('/SpecificationTests')) Or $(MSBuildProjectDirectory.Contains('\RegressionTests')) Or $(MSBuildProjectDirectory.Contains('/RegressionTests'))">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageReleaseNotes>This package is distributed as NetStandard 2.0, .NET Framework 4.8, and .NET 10.0</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
+  </PropertyGroup>
 </Project>

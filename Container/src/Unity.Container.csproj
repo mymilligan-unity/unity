@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyInformationalVersion>$(FileVersion)</AssemblyInformationalVersion>
+    <PackageId>Unity.Container</PackageId>
+    <Description>Unity Core Engine</Description>
+    <PackageProjectUrl>https://github.com/unitycontainer/unity</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/unitycontainer/unity</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/unitycontainer/unity/blob/master/LICENSE</PackageLicenseUrl>
+    <RootNamespace>Unity</RootNamespace>
+    <PackageTags>Unity Container unitycontainer Microsoft.Practices.Unity IoC</PackageTags>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp1.0' AND '$(TargetFramework)' != 'netstandard1.0' ">
+    <Compile Remove="Policy\Converter.cs" />
+  </ItemGroup>
+ 
+ 
+  <ItemGroup>
+    <None Remove="Unity.Container.csproj.DotSettings" />
+  </ItemGroup>
+
+
+
+
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
+  </ItemGroup>
+
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Abstractions\src\Unity.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

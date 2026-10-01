@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <PackageVersion>$(Version)$(VERSION_SUFFIX)</PackageVersion>
+    <PackageId>Unity.Configuration</PackageId>
+    <Description>Unity Configuration</Description>
+    <PackageProjectUrl>https://github.com/unitycontainer/unity</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/unitycontainer/unity</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/unitycontainer/unity/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>Unity Container unitycontainer Microsoft.Practices.Unity IoC Configuration</PackageTags>
+  </PropertyGroup>
+
+  <!-- Project Configuration -->
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Container\src\Unity.Container.csproj" />
+  </ItemGroup>
+</Project>

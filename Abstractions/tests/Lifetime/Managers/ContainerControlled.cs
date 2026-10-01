@@ -1,0 +1,40 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Unity.Lifetime;
+
+namespace Lifetime.Managers
+{
+    [TestClass]
+    public class ContainerControlled : Synchronized
+    {
+        protected override LifetimeManager GetManager() => new ContainerControlledLifetimeManager();
+
+        [TestMethod]
+        public override void TryGetSetOtherContainerTest()
+        {
+            base.TryGetSetOtherContainerTest();
+
+            // Validate
+            Assert.AreSame(TestObject, TestManager.TryGetValue(OtherContainer));
+            Assert.AreSame(TestObject, TestManager.GetValue(OtherContainer));
+        }
+
+        [TestMethod]
+        public override void SetValueTwiceTest()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                base.SetValueTwiceTest();
+            });
+        }
+
+        [TestMethod]
+        public override void SetDifferentValuesTwiceTest()
+        {
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                base.SetDifferentValuesTwiceTest();
+            });
+        }
+    }
+}

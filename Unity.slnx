@@ -1,0 +1,162 @@
+<Solution>
+  <Folder Name="/Configuration/">
+    <Project Path="Configuration/src/Unity.Configuration.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="InterceptionConfiguration/src/Unity.Interception.Configuration.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="RegistrationByConvention/src/Unity.RegistrationByConvention.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Configuration/Tests/">
+    <Project Path="Configuration/tests/Configuration.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="InterceptionConfiguration/tests/Interception.Configuration.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="RegistrationByConvention/tests/RegistrationByConvention.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="ServiceLocation/tests/ServiceLocation.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Examples/" />
+  <Folder Name="/Examples/Extension/">
+    <Project Path="Examples/src/Extending Unity/BuildPlan/BuildPlanExample.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Examples/src/Extending Unity/BuildPlanCreator/BuildPlanCreatorExample.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Examples/Logging/">
+    <Project Path="Examples/src/Logging/Log4net/Log4net.Example.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Examples/src/Logging/Microsoft.Logging/Microsoft.Logging.Example.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Examples/src/Logging/NLog/NLog.Example.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Examples/Web/">
+    <Project Path="Examples/src/web/ASP.Net.Unity.Example/ASP.Net.Core.Unity.Example.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Interception/">
+    <Project Path="Interception/src/Unity.Interception.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Interception/tests/Unity.Interception.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Logging/">
+    <Project Path="Log4net/src/Unity.log4net.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="NLog/src/Unity.NLog.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Logging/Tests/">
+    <Project Path="Log4net/tests/log4net.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="NLog/tests/NLog.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/">
+    <Project Path="ServiceLocation/src/Unity.ServiceLocation.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/ASP.MVC/">
+    <Project Path="MVC/src/Unity.Mvc.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="MVC/tests/MVC.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/ASP.Web.API/">
+    <Project Path="WebAPI/src/Unity.AspNet.WebApi.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="WebAPI/tests/WebApi.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/DependencyInjection/">
+    <Project Path="Microsoft.DependencyInjection/src/Unity.Microsoft.DependencyInjection.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Microsoft.DependencyInjection/tests/Unity.Microsoft.DependencyInjection.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/Logging/">
+    <Project Path="Microsoft.Logging/src/Unity.Microsoft.Logging.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Microsoft.Logging/tests/Unity.Microsoft.Logging.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/Options/">
+    <Project Path="Microsoft.Options/src/Unity.Microsoft.Options.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Microsoft.Options/tests/Unity.Microsoft.Options.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Microsoft/WCF/">
+    <Project Path="WCF/src/Unity.Wcf.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="WCF/tests/Unity.Wcf.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Regression/">
+    <Project Path="RegressionTests/Unity.Regression.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Specification/">
+    <Project Path="SpecificationTests/diagnostic/Unity.Specification.Diagnostic.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="SpecificationTests/optimized/Unity.Specification.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Specification/Tests/">
+    <Project Path="Container/tests/Unity.Diagnostic/Unity.Specification.Tests.Diagnostic.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="Container/tests/Unity.Specification/Unity.Specification.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Unity/">
+    <Project Path="Abstractions/tests/Unity.Abstractions.Tests.csproj" />
+    <Project Path="Container/tests/Performance/Performance.csproj">
+      <Build Solution="Debug|*" Project="false" />
+    </Project>
+    <Project Path="Container/tests/Unity.Tests/Unity.Tests.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+  <Project Path="Abstractions/src/Unity.Abstractions.csproj" />
+  <Project Path="Container/src/Unity.Container.csproj" />
+  <Properties Name="Performance">
+    <Property Name="HasPerformanceSessions" Value="true" />
+  </Properties>
+</Solution>

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <PropertyGroup>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Unity.AspNet.Mvc.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" />
+    <ProjectReference Include="..\src\Unity.Mvc.csproj" />
+  </ItemGroup>
+
+
+
+
+
+
+
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Abstractions\src\Unity.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Container\src\Unity.Container.csproj" />
+  </ItemGroup>
+</Project>
